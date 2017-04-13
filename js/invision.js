@@ -121,6 +121,10 @@
         // The desired framerate. Used to ignore superfluous drag events.
         var FRAMERATE = 60;
 
+        // Unit conversion
+        var FOOT = 3.28084;
+        var SQUARE_FOOT = 10.7639;
+        var METER = 0.3048;
         // Max stories
         var MAX_STORIES = 40;
 
@@ -411,7 +415,7 @@
                         }
                     break;
                 }
-                console.log(currentItem);
+                //console.log(currentItem);
                 var totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
                 identifySelection(coor.x, coor.y, totalH);
        }
@@ -451,13 +455,15 @@
                 residenVol: null
             }
             var attrs = data.attributes;
-            var storyTotal = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
-            var area = Math.round(attrs.width * attrs.depth);
-            reportVolme.area = (Math.round(attrs.width * attrs.depth)).toLocaleString();
+            var storyTotal = (attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight) * FOOT;
+            console.log(storyTotal);
+            var area = Math.round(attrs.width * FOOT) * Math.round(attrs.depth * FOOT);
+            reportVolme.area = Math.round(area).toLocaleString();
             reportVolme.volume = (Math.round(area * storyTotal)).toLocaleString();
-            reportVolme.retailVol = (Math.round(attrs.retailStoryHeight * area)).toLocaleString();
-            reportVolme.officeVol = (Math.round(attrs.officeStoryHeight * area)).toLocaleString();
-            reportVolme.residenVol = (Math.round(attrs.residentialStoryHeight * area)).toLocaleString();
+            console.log(attrs.retailStoryHeight * FOOT);
+            reportVolme.retailVol = (Math.round((attrs.retailStoryHeight * FOOT) * area)).toLocaleString();
+            reportVolme.officeVol = (Math.round((attrs.officeStoryHeight * FOOT) * area)).toLocaleString();
+            reportVolme.residenVol = (Math.round((attrs.residentialStoryHeight * FOOT) * area)).toLocaleString();
             return reportVolme;
         }
 
@@ -558,13 +564,13 @@
             $('#new-area').text(newReport.area);
             $('#new-vol').text(newReport.volume);
             }
-           
         }
 
         function originalReport(){
             // Report - current
             var original = getOriginalDataByFid(currentItem.fid);
             if (original){
+                console.log(original);
                 $('#cur-retail-vol').text(original.report.retailVol);
                 $('#cur-office-vol').text(original.report.officeVol);
                 $('#cur-residen-vol').text(original.report.residenVol);
@@ -614,11 +620,11 @@
             if (currentItem.fid){
                 $('#currentItem').text(currentItem.fid);
                 // Dimention slider
-                $('#boxWidthText').val(currentItem.attributes.width);
-                $('#boxDepthText').val(currentItem.attributes.depth);
+                $('#boxWidthText').val(currentItem.attributes.width * FOOT);
+                $('#boxDepthText').val(currentItem.attributes.depth * FOOT);
                 $('#boxAngleText').val(currentItem.attributes.angle);
-                $('#boxWidthSlider').slider('setValue', currentItem.attributes.width, true);
-                $('#boxDepthSlider').slider('setValue', currentItem.attributes.depth, true);
+                $('#boxWidthSlider').slider('setValue', currentItem.attributes.width * FOOT, true);
+                $('#boxDepthSlider').slider('setValue', currentItem.attributes.depth * FOOT, true);
                 $('#boxAngleSlider').slider('setValue', currentItem.attributes.angle, true);
                 // Stories slider
                 $('#retailValText').val(currentItem.attributes.retailStory);
@@ -856,13 +862,13 @@
             // Slider - Dimentions
             $('#boxWidthSlider').slider().on('slide', function(evt){
                 var widthVal = $('#boxWidthSlider').data('slider').getValue();
-                updateDimentions(widthVal, 'width'); // Update graphics
+                updateDimentions(widthVal * METER, 'width'); // Update graphics
                 $('#boxWidthText').val(widthVal);
                 updateNewScenarioReport();
             });
             $('#boxDepthSlider').slider().on('slide', function(evt){
                 var depthVal = $('#boxDepthSlider').data('slider').getValue();
-                updateDimentions(depthVal, 'depth');
+                updateDimentions(depthVal * METER, 'depth');
                 $('#boxDepthText').val(depthVal);
                 updateNewScenarioReport();
             });
