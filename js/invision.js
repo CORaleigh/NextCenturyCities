@@ -679,7 +679,10 @@
                     identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0);
                     $('#new-building-popup').popup('show');
                     currentItem.geometry = {x: evt.mapPoint.x, y: evt.mapPoint.y, z: 0};
-                    
+                }
+                var available = MAX_STORIES - (attrs.retailStory + attrs.officeStory + attrs.residentialStory);
+                if (available === 0){
+                    enableOneSlider();
                 }
             })
         })
