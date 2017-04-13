@@ -121,6 +121,9 @@
         // The desired framerate. Used to ignore superfluous drag events.
         var FRAMERATE = 60;
 
+        // Max stories
+        var MAX_STORIES = 40;
+
         var boxColor = {retail: [255, 23, 68, 0.9], office: [33, 150, 243, 0.9], residential: [255, 241, 118, 0.9]};
 
         //Global variables
@@ -543,9 +546,9 @@
 
         function updateNewScenarioReport(){
             if (currentItem.attributes){
-                 if(compareFidObject(currentItem.fid)){
-                trackChangeTemp.push(currentItem.fid);
-                trackChange = distinctVal(trackChangeTemp);
+                if(compareFidObject(currentItem.fid)){
+                    trackChangeTemp.push(currentItem.fid);
+                    trackChange = distinctVal(trackChangeTemp);
             }
             var newReport = calculateVolume(currentItem);
             //Report - new
@@ -660,7 +663,8 @@
                     console.log('Do case 2');
                     console.log(evt);
                     $('#new-building-popup').popup('show');
-                    currentItem.geometry = {x: evt.mapPoint.x, y: evt.mapPoint.y, z: 11.1};
+                    currentItem.geometry = {x: evt.mapPoint.x, y: evt.mapPoint.y, z: 0};
+                    identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0);
                 }
             })
         })
@@ -872,25 +876,69 @@
             // Slider - Number of Stories
             $('#typeRetail').slider().on('slide', function(evt){
                 var retailVal = $('#typeRetail').data('slider').getValue();
+                var otherVals = Number($('#officeValText').val()) + Number($('#residenValText').val());
+                var totalFloors = retailVal + otherVals;
+                var available = MAX_STORIES - otherVals;
+                // Set slider max value
+                $('#typeRetail').slider('setAttribute', 'max', available);
+                if (totalFloors >= MAX_STORIES){
+                    $('#typeOffice').slider('disable');
+                    $('#typeResiden').slider('disable');
+                } else {
+                    $('#typeOffice').slider('enable');
+                    $('#typeResiden').slider('enable');
+                }
+                // Create floors  
                 if (retailVal && currentItem.fid){
                    onStoriesSliderChange(retailVal, 'retail');
                 }
+                // Update text area and report
                 $('#retailValText').val(retailVal);
                 updateNewScenarioReport();
             });
+            
             $('#typeOffice').slider().on('slide', function(evt){
                 var officeVal = $('#typeOffice').data('slider').getValue();
+                var otherVals = Number( $('#retailValText').val()) + Number($('#residenValText').val());
+                var totalFloors = officeVal + otherVals;
+                var available = MAX_STORIES - otherVals;
+                // Set slider max value
+                $('#typeOffice').slider('setAttribute', 'max', available);
+                 if (totalFloors >= MAX_STORIES){
+                    $('#typeRetail').slider('disable');
+                    $('#typeResiden').slider('disable');
+                } else {
+                    $('#typeRetail').slider('enable');
+                    $('#typeResiden').slider('enable');
+                }
+                // Create floors 
                 if (officeVal && currentItem.fid){
                     onStoriesSliderChange(officeVal, 'office');
                 }
+                // Update text area and report
                 $('#officeValText').val(officeVal);
                 updateNewScenarioReport();
             });
+
             $('#typeResiden').slider().on('slide', function(evt){
                 var residenVal = $('#typeResiden').data('slider').getValue();
+                var otherVals = Number($('#retailValText').val()) + Number($('#officeValText').val());
+                var totalFloors = residenVal + otherVals
+                var available = MAX_STORIES - otherVals;
+                 // Set slider max value   
+                $('#typeResiden').slider('setAttribute', 'max', available);
+                if (totalFloors >= MAX_STORIES){
+                    $('#typeRetail').slider('disable');
+                    $('#typeOffice').slider('disable');
+                } else {
+                    $('#typeRetail').slider('enable');
+                    $('#typeOffice').slider('enable');
+                }
+                // Create floors 
                 if (residenVal && currentItem.fid){
                     onStoriesSliderChange(residenVal, 'residential');
                 }
+                // Update text area and report 
                 $('#residenValText').val(residenVal);
                 updateNewScenarioReport();
             });
