@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
     <link rel="stylesheet" href="css/invision.css">
+    <link href="./third-party/c3/c3.min.css" rel="stylesheet" type="text/css">
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
     <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
-    <!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+    <script src="./third-party/d3/d3.min.js"></script>
+    <!--<script src="/path/to/d3.v3.min.js" charset="utf-8"></script>-->
+    <script src="./third-party/c3/c3.min.js"></script>
+ 
+    
 
     <script>
         var dojoConfig = {
@@ -252,6 +257,66 @@
                 <button class="popup-submit">Submit</button>
             </div><!-- new-building-popup -->
 
+            
+            <!-- Report popup -->
+            <div id="report-popup" style="background-color: #fff; outline-color: black; 
+                        padding: 20px 20px 20px 20px; width: 700px; display: none;">
+                <h5 >Total Change: </h5>
+                <!--<h5 style="padding-top: 30px;">Total Change</h5>-->
+                <div class="container">
+                    <div class="row" style="padding-top: 20px;">
+                        <table id="report-tableTwo" class="table table-bordered table-sm" style="padding-top: 20px">
+                            <thead>
+                                <tr>
+                                    <th>Building</th>
+                                    <th>Retail <small>(ft<sup>3</sup>)<small></th>
+                                    <th>Office <small>(ft<sup>3</sup>)<small></th>
+                                    <th>Residential <small>(ft<sup>3</sup>)<small></th>
+                                    <th>Area <small>(ft<sup>2</sup>)</small></th>
+                                    <th>Volume <small>(ft<sup>3</sup>)<small></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Current</th>
+                                    <td class="t-cur-retail-vol">0</td>
+                                    <td class="t-cur-office-vol">0</td>
+                                    <td class="t-cur-residen-vol">0</td>
+                                    <td class="t-cur-area">0</td>
+                                    <td class="t-cur-vol">0</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">New Scenario</th>
+                                    <td class="t-new-retail-vol">0</td>
+                                    <td class="t-new-office-vol">0</td>
+                                    <td class="t-new-residen-vol">0</td>
+                                    <td class="t-new-area">0</td>
+                                    <td class="t-new-vol">0</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Change</th>
+                                    <td class="t-diff-retail-vol">0</td>
+                                    <td class="t-diff-office-vol">0</td>
+                                    <td class="t-diff-residen-vol">0</td>
+                                    <td class="t-diff-area">0</td>
+                                    <td class="t-diff-vol">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-md-6" >
+                            <div id="canvasOne"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="canvasTwo"></div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- container -->
+                <button class="popup-close" sytle="padding-top: 30px;">Close</button>
+            </div>    
+            <!-- report-popup --> 
+
             <div id="accordion" class='accordion-dimention' role="tablist" aria-multiselectable="true" style="display: none; margin-top: 30px;">
                 <div class="card">
                     <div class="card-header" role="tab" id="headingOne">
@@ -346,7 +411,7 @@
                     <div id="collapseOne-2" class="collapse show" role="tabpanel">
                         <div class="card-block">
                             <div class="container">
-                                <h5>Selected: <span id="currentItem"></span></h5>
+                                <h5>Selected: <span class="currentItem"></span></h5>
                                 <h6 style="padding-top: 20px;">Dimentions</h6>
                                     <div class="row">
                                         <table>
@@ -406,7 +471,7 @@
 
                                 <h5 style="padding-top: 20px;"><strong>Report</strong></h5>
                                 <div class="row">
-                                    <table class="table table-bordered table-sm" style="padding-top: 20px">
+                                    <table id="report-tableOne" class="table table-bordered table-sm" style="padding-top: 20px">
                                         <thead>
                                             <tr>
                                                 <th>Building</th>
@@ -420,24 +485,37 @@
                                         <tbody>
                                             <tr>
                                                 <th scope="row">Current</th>
-                                                <td id="cur-retail-vol"></td>
-                                                <td id="cur-office-vol"></td>
-                                                <td id="cur-residen-vol"></td>
-                                                <td id="cur-area"></td>
-                                                <td id="cur-vol"></td>
+                                                <td class="cur-retail-vol">0</td>
+                                                <td class="cur-office-vol">0</td>
+                                                <td class="cur-residen-vol">0</td>
+                                                <td class="cur-area">0</td>
+                                                <td class="cur-vol">0</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">New Scenario</th>
-                                                <td id="new-retail-vol"></td>
-                                                <td id="new-office-vol"></td>
-                                                <td id="new-residen-vol"></td>
-                                                <td id="new-area"></td>
-                                                <td id="new-vol"></td>
+                                                <td class="new-retail-vol">0</td>
+                                                <td class="new-office-vol">0</td>
+                                                <td class="new-residen-vol">0</td>
+                                                <td class="new-area">0</td>
+                                                <td class="new-vol">0</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Change</th>
+                                                <td class="diff-retail-vol">0</td>
+                                                <td class="diff-office-vol">0</td>
+                                                <td class="diff-residen-vol">0</td>
+                                                <td class="diff-area">0</td>
+                                                <td class="diff-vol">0</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div><!-- row -->
 
+                                <div class="row">
+                                    <button id="report-all" type="button" class="btn btn-primary" >Report</button>
+                                    <!--<a id="report-all" class="btn btn-primary" target="_blank"  href="./report.html" role="button">Report</a>-->
+                                </div>
+                                <!-- row -->
                             </div><!-- container -->
                         </div><!-- card-block -->
                     </div><!-- collapseOne-2-->

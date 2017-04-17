@@ -77,7 +77,9 @@
         sceneView.map.add(graphicsLyr);
         sceneView.then(function(){
             loadInitialGraphics();
+            //$.when(loadInitialGraphics()).then(originalDataVolume());
             initialHtmlElems();
+            
         })
 
         var graphicsLyrSelectionSym = new GraphicsLayer({
@@ -133,7 +135,9 @@
         //Global variables
         var lyrURL = 'http://services1.arcgis.com/aT1T0pU1ZdpuDk1t/arcgis/rest/services/Scenario_one/FeatureServer/0';
         // Keep original data
-        var originalData, currentItem, trackChange, trackChangeTemp;
+        var originalData, currentItem, trackChange, trackChangeTemp, newScenarioData;
+        var originalDataVol = {total: 0, area: 0, retail: 0, office: 0, residential: 0};
+        var newScenarioDataVol  = {total: 0, area: 0, retail: 0, office: 0, residential: 0};
         var attributes = {
                 fid: null,
                 pinNumber: null,
@@ -250,6 +254,7 @@
             // Track change of data
             trackChange = [];
             trackChangeTemp = [];
+            newScenarioData = [];
             var queryTask = new QueryTask({url: lyrURL});
             var query = new Query();
             var data = [];
@@ -275,6 +280,10 @@
                     var curReport = calculateVolume(data);
                     data.report = curReport;
                     originalData.push(data);
+                    var cloneCurReport = $.extend(true, {}, curReport);
+                    var newReport = {fid: data.fid, report: cloneCurReport};
+                    newScenarioData.push(newReport);
+                    totalVolumeReport(originalDataVol, curReport);
                     
                     if (attrs.retailStory > 0){
                         createGraphicStories(attrs.retailStory, attrs, FLOOR_HEIGHT_B, coor, 0, boxColor.retail);
@@ -288,7 +297,95 @@
                     }
                   } // end for
             });// end queryTask
+            console.log(newScenarioData);
         }
+
+        ////////////////////////////////////////////////////
+        //////////////// Total Volume Report ///////////////
+        ////////////////////////////////////////////////////
+        /**
+         * Calculate volume for report
+         * @param {Object} data 
+         */
+        function calculateVolume(data){
+            var reportVolme = {
+                area: null,
+                volume: null,
+                retailVol: null,
+                officeVol: null,
+                residenVol: null
+            }
+            var attrs = data.attributes;
+            var storyTotal = (attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight) * FOOT;
+            var area = Math.round(attrs.width * FOOT) * Math.round(attrs.depth * FOOT);
+            reportVolme.area = Math.round(area).toLocaleString();
+            reportVolme.volume = (Math.round(area * storyTotal)).toLocaleString();
+            reportVolme.retailVol = (Math.round((attrs.retailStoryHeight * FOOT) * area)).toLocaleString();
+            reportVolme.officeVol = (Math.round((attrs.officeStoryHeight * FOOT) * area)).toLocaleString();
+            reportVolme.residenVol = (Math.round((attrs.residentialStoryHeight * FOOT) * area)).toLocaleString();
+            return reportVolme;
+        }
+
+        /**
+         * Create total volume data
+         * @param {Object} volData - e.g. originalDataVol or newScenarioDataVol
+         * @param {Object} repo - report object for a graphic
+         */
+        function totalVolumeReport(volData, repo){
+            volData.total += Number(repo.volume.split(',').join(''));
+            volData.area += Number(repo.area.split(',').join(''));
+            volData.retail += Number(repo.retailVol.split(',').join(''));
+            volData.office += Number(repo.officeVol.split(',').join(''));
+            volData.residential += Number(repo.residenVol.split(',').join(''));
+        }
+        
+        /**
+         * Create total volume data for the new scenario
+         * Call: $('#report-all').on('click'...
+         */
+        function newScenarioVolumeReport(){
+            newScenarioDataVol = {retail: 0, office: 0, residential: 0, total: 0, area: 0};
+            for (var i = 0; i < newScenarioData.length; i++){
+                var repo = newScenarioData[i].report;
+                if (repo){
+                    totalVolumeReport(newScenarioDataVol, repo);
+                }
+            }
+        }
+
+        /**
+         * Create PieChart for total volume report
+         * @param {Object} data - total volume data
+         * @param {String} htmlEle  - html div element for the chart
+         * @param {String} chartName - title name for the chart
+         */
+        function pieChart(data, htmlEle, chartName){
+            if (data.total != 0){
+                var retailP = ((data.retail / data.total) * 100).toFixed(1);
+                var officeP = ((data.office / data.total) * 100).toFixed(1);
+                var residenP = ((data.residential/data.total) * 100).toFixed(1);
+                console.log(retailP, officeP, residenP);
+                var chart = c3.generate({
+                    bindto: htmlEle,
+                    data: {
+                    columns: [
+                            ['Retail', retailP],
+                            ['Office', officeP],
+                            ['Residential', residenP]
+                        ],
+                    type: 'donut',
+                    colors: {
+                        Retail: '#FF6384',
+                        Office: '#36A2EB',
+                        Residential: '#FFCE56'
+                    }
+                },
+                donut: {title: chartName}
+                });
+            }
+        }
+
+        //----> [Total Volume Report]
 
 
         function graphicLyrFilterById(){
@@ -370,7 +467,6 @@
                         bottomZ = attrs.retailStoryHeight + attrs.officeStoryHeight;
                         if (value > 0){
                             createGraphicStories(value, attrs, FLOOR_HEIGHT_B, coor, 0, boxColor.retail);
-
                         }
                         if (attrs.officeStory > 0){
                             createGraphicStories(attrs.officeStory, attrs, FLOOR_HEIGHT_A, coor, attrs.retailStoryHeight, boxColor.office);
@@ -441,28 +537,8 @@
                     return false;
                 }
             } else {
-                return 'NO_ORIGINAL';
+                return 'NO_ORIGINAL_DATA';
             }
-        }
-
-
-        function calculateVolume(data){
-            var reportVolme = {
-                area: null,
-                volume: null,
-                retailVol: null,
-                officeVol: null,
-                residenVol: null
-            }
-            var attrs = data.attributes;
-            var storyTotal = (attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight) * FOOT;
-            var area = Math.round(attrs.width * FOOT) * Math.round(attrs.depth * FOOT);
-            reportVolme.area = Math.round(area).toLocaleString();
-            reportVolme.volume = (Math.round(area * storyTotal)).toLocaleString();
-            reportVolme.retailVol = (Math.round((attrs.retailStoryHeight * FOOT) * area)).toLocaleString();
-            reportVolme.officeVol = (Math.round((attrs.officeStoryHeight * FOOT) * area)).toLocaleString();
-            reportVolme.residenVol = (Math.round((attrs.residentialStoryHeight * FOOT) * area)).toLocaleString();
-            return reportVolme;
         }
 
 
@@ -490,10 +566,10 @@
             var filtered = graphicLyrFilterById();
             graphicsLyrSelectionSym.removeAll();
             graphicsLyr.removeMany(filtered);
-            var originalData = getOriginalDataByFid( currentItem.fid);
-            if (originalData){
-                var attrs = originalData.attributes;
-                var coor = originalData.geometry;
+            var fidData = getOriginalDataByFid(currentItem.fid);
+            if (fidData){
+                var attrs = fidData.attributes;
+                var coor = fidData.geometry;
                 
                 if (attrs.retailStory > 0){
                     createGraphicStories(attrs.retailStory, attrs, FLOOR_HEIGHT_B, coor, 0, boxColor.retail);
@@ -505,16 +581,21 @@
                     var bottomZ = attrs.retailStoryHeight + attrs.officeStoryHeight;
                     createGraphicStories(attrs.residentialStory, attrs, FLOOR_HEIGHT_A, coor, bottomZ, boxColor.residential);
                 }
-                currentItem = $.extend(true, {}, originalData);
+                currentItem = $.extend(true, {}, fidData);
             } else {
                 currentItem = {fid: null, attributes: null, geometry: null};
             }
-
-            
             // trackChange = $.grep(trackChange, function(val){
             //     return val != currentItem.fid;
             // })
-            // console.log(trackChange);
+            console.log(trackChange);
+            console.log(trackChange.indexOf(currentItem.fid));
+            trackChange.splice(trackChange.indexOf(currentItem.fid), 1);
+            console.log(trackChange);
+            var available = MAX_STORIES - (attrs.retailStory + attrs.officeStory + attrs.residentialStory);
+                if (available === 0){
+                    enableOneSlider();
+            }
             updateHtmlElems()
             originalReport();
             updateNewScenarioReport();
@@ -548,43 +629,108 @@
         }
 
 
+        function updateChangeReport(numStrOne, numStrTwo){
+            if (numStrOne && numStrTwo){
+                var numOne, numTwo, diff;
+                if (typeof numStrOne != 'number'){
+                    numOne = numStrOne.split(',').join('');
+                } else {
+                    numOne = numStrOne;
+                }
+                if (typeof numStrTwo != 'number'){
+                    numTwo = numStrTwo.split(',').join('');
+                } else {
+                    numTwo = numStrTwo;
+                }
+                diff = Number(numTwo) - Number(numOne);
+                if (diff > 0){
+                    return '+' + diff.toLocaleString();
+                }else{
+                    return diff.toLocaleString();
+                }
+            }
+        }
+
+
         function updateNewScenarioReport(){
             if (currentItem.attributes){
+                // Track change
                 if(compareFidObject(currentItem.fid)){
                     trackChangeTemp.push(currentItem.fid);
                     trackChange = distinctVal(trackChangeTemp);
-            }
-            var newReport = calculateVolume(currentItem);
-            //Report - new
-            $('#new-retail-vol').text(newReport.retailVol);
-            $('#new-office-vol').text(newReport.officeVol);
-            $('#new-residen-vol').text(newReport.residenVol);
-            $('#new-area').text(newReport.area);
-            $('#new-vol').text(newReport.volume);
+                }
+                var newReport = calculateVolume(currentItem);
+                for (var i = 0; i < newScenarioData.length; i++){
+                    if (newScenarioData[i].fid == currentItem.fid){
+                        newScenarioData[i].report = newReport;
+                    }
+                }
+                newScenarioVolumeReport();
+                //newScenarioData[currentItem.fid] = newReport;
+                //console.log(newScenarioData[currentItem.fid]);
+                console.log(trackChange);
+                //console.log(newScenarioData);
+                //Report - new
+                $('.new-retail-vol').text(newReport.retailVol);
+                $('.new-office-vol').text(newReport.officeVol);
+                $('.new-residen-vol').text(newReport.residenVol);
+                $('.new-area').text(newReport.area);
+                $('.new-vol').text(newReport.volume);
+
+                var original = getOriginalDataByFid(currentItem.fid);
+                $('.diff-retail-vol').text(updateChangeReport(original.report.retailVol, newReport.retailVol));
+                $('.diff-office-vol').text(updateChangeReport(original.report.officeVol, newReport.officeVol));
+                $('.diff-residen-vol').text(updateChangeReport(original.report.residenVol, newReport.residenVol));
+                $('.diff-area').text(updateChangeReport(original.report.area, newReport.area));
+                $('.diff-vol').text(updateChangeReport(original.report.volume, newReport.volume));
             }
         }
+
+
+        function updateTotalVolumeReport(){
+            if (originalDataVol.total != 0){
+                $('.t-cur-retail-vol').text(originalDataVol.retail.toLocaleString());
+                $('.t-cur-office-vol').text(originalDataVol.office.toLocaleString());
+                $('.t-cur-residen-vol').text(originalDataVol.residential.toLocaleString());
+                $('.t-cur-area').text(originalDataVol.area.toLocaleString());
+                $('.t-cur-vol').text(originalDataVol.total.toLocaleString());
+            }
+            if (newScenarioDataVol.total != 0){
+                $('.t-new-retail-vol').text(newScenarioDataVol.retail.toLocaleString());
+                $('.t-new-office-vol').text(newScenarioDataVol.office.toLocaleString());
+                $('.t-new-residen-vol').text(newScenarioDataVol.residential.toLocaleString());
+                $('.t-new-area').text(newScenarioDataVol.area.toLocaleString());
+                $('.t-new-vol').text(newScenarioDataVol.total.toLocaleString());
+            }
+                $('.t-diff-retail-vol').text(updateChangeReport(originalDataVol.retail, newScenarioDataVol.retail));
+                $('.t-diff-office-vol').text(updateChangeReport(originalDataVol.office, newScenarioDataVol.office));
+                $('.t-diff-residen-vol').text(updateChangeReport(originalDataVol.residential, newScenarioDataVol.residential));
+                $('.t-diff-area').text(updateChangeReport(originalDataVol.area, newScenarioDataVol.area));
+                $('.t-diff-vol').text(updateChangeReport(originalDataVol.total, newScenarioDataVol.total));
+        }
+
 
         function originalReport(){
             // Report - current
             var original = getOriginalDataByFid(currentItem.fid);
             if (original){
-                $('#cur-retail-vol').text(original.report.retailVol);
-                $('#cur-office-vol').text(original.report.officeVol);
-                $('#cur-residen-vol').text(original.report.residenVol);
-                $('#cur-area').text(original.report.area);
-                $('#cur-vol').text(original.report.volume);
+                $('.cur-retail-vol').text(original.report.retailVol);
+                $('.cur-office-vol').text(original.report.officeVol);
+                $('.cur-residen-vol').text(original.report.residenVol);
+                $('.cur-area').text(original.report.area);
+                $('.cur-vol').text(original.report.volume);
             } else{
-                $('#cur-retail-vol').text(0);
-                $('#cur-office-vol').text(0);
-                $('#cur-residen-vol').text(0);
-                $('#cur-area').text(0);
-                $('#cur-vol').text(0);
+                $('.cur-retail-vol').text(0);
+                $('.cur-office-vol').text(0);
+                $('.cur-residen-vol').text(0);
+                $('.cur-area').text(0);
+                $('.cur-vol').text(0);
             }
         }
 
 
         function initialHtmlElems(){
-            $('#currentItem').text('');
+            $('.currentItem').text('');
             $('#boxWidthText').val(0);
             $('#boxDepthText').val(0);
             $('#boxAngleText').val(0);
@@ -599,23 +745,23 @@
             $('#typeOffice').slider('setValue', 0, true);
             $('#typeResiden').slider('setValue', 0, true);
             //Report -current
-            $('#cur-retail-vol').text(0);
-            $('#cur-office-vol').text(0);
-            $('#cur-residen-vol').text(0);
-            $('#cur-area').text(0);
-            $('#cur-vol').text(0);
+            $('.cur-retail-vol').text(0);
+            $('.cur-office-vol').text(0);
+            $('.cur-residen-vol').text(0);
+            $('.cur-area').text(0);
+            $('.cur-vol').text(0);
             //Report - new
-            $('#new-retail-vol').text(0);
-            $('#new-office-vol').text(0);
-            $('#new-residen-vol').text(0);
-            $('#new-area').text(0);
-            $('#new-vol').text(0);
+            $('.new-retail-vol').text(0);
+            $('.new-office-vol').text(0);
+            $('.new-residen-vol').text(0);
+            $('.new-area').text(0);
+            $('.new-vol').text(0);
         }
 
 
         function updateHtmlElems(){
             if (currentItem.fid){
-                $('#currentItem').text(currentItem.fid);
+                $('.currentItem').text(currentItem.fid);
                 // Dimention slider
                 $('#boxWidthText').val(currentItem.attributes.width * FOOT);
                 $('#boxDepthText').val(currentItem.attributes.depth * FOOT);
@@ -807,6 +953,8 @@
             $('#new-building-popup').popup({
                 backgroundactive: true,
             });
+            $('#report-popup').popup();
+            
         }); //jQuery function
 
          $('#backBtn').on('click', function(){
@@ -984,7 +1132,9 @@
             $('.popup-close').on('click', function(){
                 graphicsLyrSelectionSym.removeAll();
                 $('#new-building-popup').popup('hide');
+                $('#report-popup').popup('hide');
             })
+
             $('.popup-submit').on('click', function(){
                 $('#new-building-popup').popup('hide');
                 currentItem.fid = $('#popup-name').val();
@@ -1019,6 +1169,24 @@
                 updateHtmlElems();
                 originalReport();
                 updateNewScenarioReport();
+            })
+
+            $('#report-all').on('click', function(){
+                $('#report-popup').popup('show');
+                // $('#currenItem').clone().appendTo($('#currentItemTwo'));
+                if ($('#report-popup-table').children().length > 0){
+                    $('#report-popup-table').children().remove();
+                }
+                //var replace = $('#report-tableOne').clone().appendTo($('#report-popup-table'));
+                updateTotalVolumeReport();
+                pieChart(originalDataVol, '#canvasOne', 'Current');
+                console.log(newScenarioDataVol);
+                // if ($('#canvasTwo').children().length > 0){
+                //     $('#canvasTwo').children().remove();
+                // }
+                pieChart(newScenarioDataVol, '#canvasTwo', 'New Scenario');
+                //var newTable = $('#report-tableOne').clone();
+                // $('#report-popup-table').replaceWith($('#report-tableOne'));
             })
 
     }); // *** END ***
