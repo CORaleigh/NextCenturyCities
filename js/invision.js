@@ -689,6 +689,12 @@
                     $('.diff-residen-vol').text(updateChangeReport(original.report.residenVol, newReport.residenVol));
                     $('.diff-area').text(updateChangeReport(original.report.area, newReport.area));
                     $('.diff-vol').text(updateChangeReport(original.report.volume, newReport.volume));
+                } else {
+                    $('.diff-retail-vol').text(updateChangeReport('0', newReport.retailVol));
+                    $('.diff-office-vol').text(updateChangeReport('0', newReport.officeVol));
+                    $('.diff-residen-vol').text(updateChangeReport('0', newReport.residenVol));
+                    $('.diff-area').text(updateChangeReport('0', newReport.area));
+                    $('.diff-vol').text(updateChangeReport('0', newReport.volume));
                 }
             }
         }
