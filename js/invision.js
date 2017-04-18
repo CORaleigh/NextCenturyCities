@@ -522,17 +522,7 @@
                 identifySelection(coor.x, coor.y, totalH, attrs);
        }
 
-
-        function adjustSlider(useType, htmlEle, value, totalFloors, available){
-            if (totalFloors >= MAX_STORIES){
-                enableOneSlider();
-            } else {
-                enableAllSlider();
-                $(htmlEle).slider('setAttribute', 'max', available);
-            }
-        }
-
-        
+       
         function compareFidObject(fid){
             var original = getOriginalDataByFid(fid);
             if (original){
@@ -616,6 +606,7 @@
 
 
         function identifySelection(x, y, z, attributes){
+            attributes = attributes || null;
             graphicsLyrSelectionSym.removeAll();
             //var coor = currentItem.geometry;
             var point = new Point({
@@ -636,13 +627,16 @@
 
             var pointGraphic = new Graphic({
                 geometry: point,
-                symbol: markerSymbol,
-                popupTemplate: {
-                    title: 'FID: ' + attributes.fid.toString(),
-                    content: '<p>PIN Number: ' + attributes.pinNumber.toString() + '<br>Zoning: ' +
-                    attributes.zoning + '</p>'
-                }
+                symbol: markerSymbol
             });
+
+            if (attributes){
+                pointGraphic.popupTemplate = {
+                    title: 'FID: ' + attributes.fid.toString(),
+                    content: '<p><br>PIN Number: ' + attributes.pinNumber +
+                    '<br>Zoning: ' + attributes.zoning + '</p>'
+                }
+            }
             graphicsLyrSelectionSym.add(pointGraphic);
         }
 
@@ -809,34 +803,6 @@
         }
 
         
-        function enableOneSlider(){
-            var attrs = currentItem.attributes;
-            var stories = [attrs.retailStory, attrs.officeStory, attrs.residentialStory];
-            var maximum = stories.indexOf(Math.max.apply(Math, stories));
-            $('#typeRetail').slider('disable');
-            $('#typeOffice').slider('disable');
-            $('#typeResiden').slider('disable');
-            switch (maximum){
-                case 0: $('#typeRetail').slider('enable');
-                break;
-                case 1: $('#typeOffice').slider('enable');
-                break;
-                case 2: $('#typeResiden').slider('enable');
-                break;
-            }
-            $('#typeRetail').slider('setAttribute', 'max', attrs.retailStory);
-            $('#typeOffice').slider('setAttribute', 'max', attrs.officeStory);
-            $('#typeResiden').slider('setAttribute', 'max', attrs.residentialStory);
-        }
-
-
-        function enableAllSlider(){
-            $('#typeRetail').slider('enable');
-            $('#typeOffice').slider('enable');
-            $('#typeResiden').slider('enable');
-        }
-
-
         ////////////////////////////////////////////////////////////
         //////////////////////// Events ///////////////////////////
         ///////////////////////////////////////////////////////////
@@ -861,7 +827,7 @@
                     updateNewScenarioReport();
                 }
                 else {
-                    identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0, attrs);
+                    identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0);
                     $('#new-building-popup').popup('show');
                     currentItem.geometry = {x: evt.mapPoint.x, y: evt.mapPoint.y, z: 0};
                 }
@@ -1079,8 +1045,10 @@
                 var otherVals = Number($('#officeValText').val()) + Number($('#residenValText').val());
                 var totalFloors = retailVal + otherVals;
                 var available = MAX_STORIES - otherVals;
-                adjustSlider('retail', '#typeRetail', retailVal, totalFloors, available);
-               
+                $('#typeRetail').slider('setAttribute', 'max', available);
+                $('#typeOffice').slider('setAttribute', 'max', Number($('#officeValText').val()));
+                $('#typeResiden').slider('setAttribute', 'max', Number($('#residenValText').val()));
+                $('#typeRetail').slider()
                 if (currentItem.fid){
                     onStoriesSliderChange(retailVal, 'retail');
                 }
@@ -1094,7 +1062,9 @@
                 var otherVals = Number( $('#retailValText').val()) + Number($('#residenValText').val());
                 var totalFloors = officeVal + otherVals;
                 var available = MAX_STORIES - otherVals;
-                adjustSlider('office', '#typeOffice', officeVal, totalFloors, available);
+                $('#typeOffice').slider('setAttribute', 'max', available);
+                $('#typeRetail').slider('setAttribute', 'max', Number( $('#retailValText').val()));
+                $('#typeResiden').slider('setAttribute', 'max', Number($('#residenValText').val()));
 
                 if (currentItem.fid){
                     onStoriesSliderChange(officeVal, 'office');
@@ -1109,7 +1079,9 @@
                 var otherVals = Number($('#retailValText').val()) + Number($('#officeValText').val());
                 var totalFloors = residenVal + otherVals
                 var available = MAX_STORIES - otherVals;
-                adjustSlider('residenVal', '#typeResiden', residenVal, totalFloors, available);
+                $('#typeResiden').slider('setAttribute', 'max', available);
+                $('#typeRetail').slider('setAttribute', 'max', Number( $('#retailValText').val()));
+                $('#typeOffice').slider('setAttribute', 'max', Number($('#officeValText').val()));
 
                 if (currentItem.fid){
                     onStoriesSliderChange(residenVal, 'residential');
