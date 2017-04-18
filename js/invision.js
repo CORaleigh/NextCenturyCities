@@ -268,6 +268,7 @@
             queryTask.execute(query).then(function(results){
                 console.log(results);
                 selection = randomBuildingSelection(0, results.features.length - 1, RANDOM_BUILDINGS);
+                //selection = [37, 44, 5, 7, 8]; //Testing a slider bug
                 console.log('random', selection);
                 for (var i = 0; i < selection.length; i++){
                     var idx = selection[i];
@@ -517,22 +518,13 @@
                 identifySelection(coor.x, coor.y, totalH);
        }
 
-        function sliderMax(useType, value, totalFloors, htmlElmsList, available){
-            var elemOne = htmlElmsList[0];
-            var elemTwo = htmlElmsList[1];
+
+        function adjustSlider(useType, htmlEle, value, totalFloors, available){
             if (totalFloors >= MAX_STORIES){
-                $(elemOne).slider('disable');
-                $(elemTwo).slider('disable');
-            } else {
-                $(elemOne).slider('enable');
-                $(elemTwo).slider('enable');
-            }
-            if (available === 0){
                 enableOneSlider();
-            }
-            // Create floors  
-            if (value && currentItem.fid){
-                onStoriesSliderChange(value,useType);
+            } else {
+                enableAllSlider();
+                $(htmlEle).slider('setAttribute', 'max', available);
             }
         }
 
@@ -587,9 +579,10 @@
             graphicsLyrSelectionSym.removeAll();
             graphicsLyr.removeMany(filtered);
             var fidData = getOriginalDataByFid(currentItem.fid);
+            var attrs, coor;
             if (fidData){
-                var attrs = fidData.attributes;
-                var coor = fidData.geometry;
+                attrs = fidData.attributes;
+                coor = fidData.geometry;
                 
                 if (attrs.retailStory > 0){
                     createGraphicStories(attrs.retailStory, attrs, FLOOR_HEIGHT_B, coor, 0, boxColor.retail);
@@ -608,16 +601,11 @@
             // trackChange = $.grep(trackChange, function(val){
             //     return val != currentItem.fid;
             // })
-            console.log(trackChange);
-            console.log(trackChange.indexOf(currentItem.fid));
+            // console.log(trackChange);
+            // console.log(trackChange.indexOf(currentItem.fid));
             trackChange.splice(trackChange.indexOf(currentItem.fid), 1);
             console.log(trackChange);
-            var available = MAX_STORIES - (attrs.retailStory + attrs.officeStory + attrs.residentialStory);
-            console.log(available);
-            if (available === 0){
-                enableOneSlider();
-            }
-            updateHtmlElems()
+            updateHtmlElems(attrs);
             originalReport();
             updateNewScenarioReport();
         }
@@ -686,11 +674,7 @@
                         newScenarioData[i].report = newReport;
                     }
                 }
-                
-                //newScenarioData[currentItem.fid] = newReport;
-                //console.log(newScenarioData[currentItem.fid]);
-                // console.log(trackChange);
-                //console.log(newScenarioData);
+
                 //Report - new
                 $('.new-retail-vol').text(newReport.retailVol);
                 $('.new-office-vol').text(newReport.officeVol);
@@ -782,23 +766,27 @@
         }
 
 
-        function updateHtmlElems(){
+        function updateHtmlElems(attrData){
             if (currentItem.fid){
-                $('.currentItem').text(currentItem.fid);
+                $('.currentItem').text(attrData.fid);
                 // Dimention slider
-                $('#boxWidthText').val(currentItem.attributes.width * FOOT);
-                $('#boxDepthText').val(currentItem.attributes.depth * FOOT);
-                $('#boxAngleText').val(currentItem.attributes.angle);
-                $('#boxWidthSlider').slider('setValue', currentItem.attributes.width * FOOT, true);
-                $('#boxDepthSlider').slider('setValue', currentItem.attributes.depth * FOOT, true);
-                $('#boxAngleSlider').slider('setValue', currentItem.attributes.angle, true);
+                $('#boxWidthText').val(attrData.width * FOOT);
+                $('#boxDepthText').val(attrData.depth * FOOT);
+                $('#boxAngleText').val(attrData.angle);
+                $('#boxWidthSlider').slider('setValue', attrData.width * FOOT, true);
+                $('#boxDepthSlider').slider('setValue', attrData.depth * FOOT, true);
+                $('#boxAngleSlider').slider('setValue', attrData.angle, true);
                 // Stories slider
-                $('#retailValText').val(currentItem.attributes.retailStory);
-                $('#officeValText').val(currentItem.attributes.officeStory);
-                $('#residenValText').val(currentItem.attributes.residentialStory);
-                $('#typeRetail').slider('setValue', currentItem.attributes.retailStory, true);
-                $('#typeOffice').slider('setValue', currentItem.attributes.officeStory, true);
-                $('#typeResiden').slider('setValue', currentItem.attributes.residentialStory, true);
+                $('#retailValText').val(attrData.retailStory);
+                $('#officeValText').val(attrData.officeStory);
+                $('#residenValText').val(attrData.residentialStory);
+                // Set slider max value to MAX_STORIES
+                $('#typeRetail').slider('setAttribute', 'max', MAX_STORIES);
+                $('#typeOffice').slider('setAttribute', 'max', MAX_STORIES);
+                $('#typeResiden').slider('setAttribute', 'max', MAX_STORIES);
+                $('#typeRetail').slider('setValue', attrData.retailStory, true);
+                $('#typeOffice').slider('setValue', attrData.officeStory, true);
+                $('#typeResiden').slider('setValue', attrData.residentialStory, true);
             }
             else {
                 initialHtmlElems()
@@ -810,6 +798,9 @@
             var attrs = currentItem.attributes;
             var stories = [attrs.retailStory, attrs.officeStory, attrs.residentialStory];
             var maximum = stories.indexOf(Math.max.apply(Math, stories));
+            $('#typeRetail').slider('disable');
+            $('#typeOffice').slider('disable');
+            $('#typeResiden').slider('disable');
             switch (maximum){
                 case 0: $('#typeRetail').slider('enable');
                 break;
@@ -818,6 +809,16 @@
                 case 2: $('#typeResiden').slider('enable');
                 break;
             }
+            $('#typeRetail').slider('setAttribute', 'max', attrs.retailStory);
+            $('#typeOffice').slider('setAttribute', 'max', attrs.officeStory);
+            $('#typeResiden').slider('setAttribute', 'max', attrs.residentialStory);
+        }
+
+
+        function enableAllSlider(){
+            $('#typeRetail').slider('enable');
+            $('#typeOffice').slider('enable');
+            $('#typeResiden').slider('enable');
         }
 
 
@@ -840,7 +841,7 @@
                     var attrs = currentItem.attributes;
                     var totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
                     identifySelection(geom.x, geom.y, totalH);
-                    updateHtmlElems();
+                    updateHtmlElems(attrs);
                     originalReport();
                     updateNewScenarioReport();
                 }
@@ -848,17 +849,6 @@
                     identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0);
                     $('#new-building-popup').popup('show');
                     currentItem.geometry = {x: evt.mapPoint.x, y: evt.mapPoint.y, z: 0};
-                }
-                var available = MAX_STORIES - (attrs.retailStory + attrs.officeStory + attrs.residentialStory);
-                console.log(available);
-
-                if (available === 0) {
-                    enableOneSlider();
-                }
-                if ($('#typeRetail').hasClass('slider-disabled') && 
-                    $('#typeOffice').hasClass('slider-disabled') &&
-                    $('#typeResiden').hasClass('slider-disabled')){
-                        enableOneSlider();
                 }
             })
         })
@@ -904,7 +894,7 @@
                         }
 
                         updateSelection();
-                        updateHtmlElems();
+                        updateHtmlElems(currentItem.attributes);
                         originalReport();
                         updateNewScenarioReport();
                     }); // END hitTest
@@ -1074,9 +1064,11 @@
                 var otherVals = Number($('#officeValText').val()) + Number($('#residenValText').val());
                 var totalFloors = retailVal + otherVals;
                 var available = MAX_STORIES - otherVals;
-                // Set slider max value
-                $('#typeRetail').slider('setAttribute', 'max', available);
-                sliderMax('retail', retailVal, totalFloors, ['#typeOffice', '#typeResiden'], available);
+                adjustSlider('retail', '#typeRetail', retailVal, totalFloors, available);
+               
+                if (currentItem.fid){
+                    onStoriesSliderChange(retailVal, 'retail');
+                }
                 // Update text area and report
                 $('#retailValText').val(retailVal);
                 updateNewScenarioReport();
@@ -1087,9 +1079,11 @@
                 var otherVals = Number( $('#retailValText').val()) + Number($('#residenValText').val());
                 var totalFloors = officeVal + otherVals;
                 var available = MAX_STORIES - otherVals;
-                // Set slider max value
-                $('#typeOffice').slider('setAttribute', 'max', available);
-                sliderMax('office', officeVal, totalFloors, ['#typeRetail', '#typeResiden'], available);
+                adjustSlider('office', '#typeOffice', officeVal, totalFloors, available);
+
+                if (currentItem.fid){
+                    onStoriesSliderChange(officeVal, 'office');
+                }
                 // Update text area and report
                 $('#officeValText').val(officeVal);
                 updateNewScenarioReport();
@@ -1100,9 +1094,11 @@
                 var otherVals = Number($('#retailValText').val()) + Number($('#officeValText').val());
                 var totalFloors = residenVal + otherVals
                 var available = MAX_STORIES - otherVals;
-                 // Set slider max value   
-                $('#typeResiden').slider('setAttribute', 'max', available);
-                sliderMax('residential', residenVal, totalFloors, ['#typeRetail', '#typeResiden'], available);
+                adjustSlider('residenVal', '#typeResiden', residenVal, totalFloors, available);
+
+                if (currentItem.fid){
+                    onStoriesSliderChange(residenVal, 'residential');
+                }
                 // Update text area and report 
                 $('#residenValText').val(residenVal);
                 updateNewScenarioReport();
@@ -1158,7 +1154,7 @@
                     var bottomZ = attrs.retailStoryHeight + attrs.officeStoryHeight;
                     createGraphicStories(attrs.residentialStory, attrs, FLOOR_HEIGHT_A, coor, bottomZ, boxColor.residential);
                 }
-                updateHtmlElems();
+                updateHtmlElems(attrs);
                 originalReport();
                 updateNewScenarioReport();
             })
