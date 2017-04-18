@@ -45,11 +45,14 @@
         'esri/views/3d/input/handlers/DragPan',
         'esri/views/3d/input/handlers/DragRotate',
         'esri/geometry/ScreenPoint',
+        'esri/PopupTemplate',
+
 
         'dojo/domReady!'
     ], function(Map, SceneView, WebScene, dom, on, domStyle, lang,
-        GraphicsLayer, Graphic, PointSymbol3D, ObjectSymbol3DLayer, QueryTask, Query, Point, SimpleMarkerSymbol,
-        MouseWheelZoom, DoubleClickZoom, DragPan, DragRotate, ScreenPoint
+        GraphicsLayer, Graphic, PointSymbol3D, ObjectSymbol3DLayer, QueryTask, Query, Point, 
+        SimpleMarkerSymbol, MouseWheelZoom, DoubleClickZoom, DragPan, DragRotate, 
+        ScreenPoint, PopupTemplate
     )
     {
         // var map = new Map({
@@ -159,15 +162,16 @@
 
         // add Graphics
         function graphicMakerAdder(typeAttrs, symbol, z, geom){
-            var graphicObj = new Graphic();
-            graphicObj.attributes = typeAttrs;
-            graphicObj.geometry =  new Point({
-                x: geom.x,
-                y: geom.y,
-                z: z,
-                spatialReference: {wkid: 102100}
+            var graphicObj = new Graphic({
+                attributes: typeAttrs,
+                geometry: new Point({
+                    x: geom.x,
+                    y: geom.y,
+                    z: z,
+                    spatialReference: {wkid: 102100}
+                }),
+                symbol: symbol
             });
-            graphicObj.symbol = symbol;
             graphicsLyr.add(graphicObj);
         }
 
@@ -515,7 +519,7 @@
                 }
                 //console.log(currentItem);
                 var totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
-                identifySelection(coor.x, coor.y, totalH);
+                identifySelection(coor.x, coor.y, totalH, attrs);
        }
 
 
@@ -611,7 +615,7 @@
         }
 
 
-        function identifySelection(x, y, z){
+        function identifySelection(x, y, z, attributes){
             graphicsLyrSelectionSym.removeAll();
             //var coor = currentItem.geometry;
             var point = new Point({
@@ -632,7 +636,12 @@
 
             var pointGraphic = new Graphic({
                 geometry: point,
-                symbol: markerSymbol
+                symbol: markerSymbol,
+                popupTemplate: {
+                    title: 'FID: ' + attributes.fid.toString(),
+                    content: '<p>PIN Number: ' + attributes.pinNumber.toString() + '<br>Zoning: ' +
+                    attributes.zoning + '</p>'
+                }
             });
             graphicsLyrSelectionSym.add(pointGraphic);
         }
@@ -838,7 +847,7 @@
         sceneView.on('click', function(evt){
             sceneView.hitTest(evt.screenPoint).then(function(picked){
                 if(picked.results[0].graphic){
-                    var pickedItem = picked.results[0].graphic
+                    var pickedItem = picked.results[0].graphic;
                     console.log('picked', picked);
                     currentItem.fid = pickedItem.attributes.fid;
                     currentItem.attributes = pickedItem.attributes;
@@ -846,13 +855,13 @@
                     var geom = currentItem.geometry;
                     var attrs = currentItem.attributes;
                     var totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
-                    identifySelection(geom.x, geom.y, totalH);
+                    identifySelection(geom.x, geom.y, totalH, attrs);
                     updateHtmlElems(attrs);
                     originalReport();
                     updateNewScenarioReport();
                 }
                 else {
-                    identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0);
+                    identifySelection(evt.mapPoint.x, evt.mapPoint.y, 0, attrs);
                     $('#new-building-popup').popup('show');
                     currentItem.geometry = {x: evt.mapPoint.x, y: evt.mapPoint.y, z: 0};
                 }
@@ -951,7 +960,7 @@
                         
                     }
                     totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
-                    identifySelection(coor.x, coor.y, totalH);
+                    identifySelection(coor.x, coor.y, totalH, attrs);
                     _drag = null;
                     
                     // // Restore sceneview interaction to default mouse/pointer behaviour.
@@ -1148,7 +1157,7 @@
                 currentItem.attributes = attrs;
                 totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
                 console.log(currentItem)
-                identifySelection(coor.x, coor.y, totalH);
+                identifySelection(coor.x, coor.y, totalH, attrs);
                 
                 if (attrs.retailStory > 0){
                     createGraphicStories(attrs.retailStory, attrs, FLOOR_HEIGHT_B, coor, 0, boxColor.retail);
