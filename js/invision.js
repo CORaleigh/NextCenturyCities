@@ -30,7 +30,6 @@
         'dojo/on',
         'dojo/dom-style',
         'dojo/_base/lang',
-
         'esri/layers/GraphicsLayer',
         'esri/Graphic',
         'esri/symbols/PointSymbol3D',
@@ -39,15 +38,12 @@
         'esri/tasks/support/Query',
         'esri/geometry/Point',
         'esri/symbols/SimpleMarkerSymbol',
-
         'esri/views/3d/input/handlers/MouseWheelZoom',
         'esri/views/3d/input/handlers/DoubleClickZoom',
         'esri/views/3d/input/handlers/DragPan',
         'esri/views/3d/input/handlers/DragRotate',
         'esri/geometry/ScreenPoint',
         'esri/PopupTemplate',
-
-
         'dojo/domReady!'
     ], function(Map, SceneView, WebScene, dom, on, domStyle, lang,
         GraphicsLayer, Graphic, PointSymbol3D, ObjectSymbol3DLayer, QueryTask, Query, Point, 
@@ -83,7 +79,6 @@
             loadInitialGraphics();
             //$.when(loadInitialGraphics()).then(originalDataVolume());
             initialHtmlElems();
-            
         })
 
         var graphicsLyrSelectionSym = new GraphicsLayer({
@@ -142,7 +137,7 @@
         var originalData, currentItem, trackChange, trackChangeTemp, newScenarioData;
         var originalDataVol = {total: 0, area: 0, retail: 0, office: 0, residential: 0};
         var newScenarioDataVol  = {total: 0, area: 0, retail: 0, office: 0, residential: 0};
-        var attributes = {
+        var attributesTemplate = {
                 fid: null,
                 pinNumber: null,
                 zoning: null,
@@ -251,7 +246,9 @@
             })
          }
         
+        function setAttributesFromGraphic(){
 
+        } 
         function loadInitialGraphics(){
             sceneView.map.findLayerById('buildings').removeAll();
             originalData = [];
@@ -775,34 +772,58 @@
         }
 
 
-        function updateHtmlElems(attrData){
+        function updateHtmlElems(attrs){
             if (currentItem.fid){
-                $('.currentItem').text(attrData.fid);
+                $('.currentItem').text(currentItem.fid);
+                console.log(currentItem.attributes);
+                console.log('attrs', attrs);
+                //var attrs = currentItem.attributes;
+                console.log('width (ft)', attrs.width * FOOT);
                 // Dimention slider
-                $('#boxWidthText').val(attrData.width * FOOT);
-                $('#boxDepthText').val(attrData.depth * FOOT);
-                $('#boxAngleText').val(attrData.angle);
-                $('#boxWidthSlider').slider('setValue', attrData.width * FOOT, true);
-                $('#boxDepthSlider').slider('setValue', attrData.depth * FOOT, true);
-                $('#boxAngleSlider').slider('setValue', attrData.angle, true);
+                $('#boxWidthText').val(attrs.width * FOOT);
+                $('#boxDepthText').val(attrs.depth * FOOT);
+                $('#boxAngleText').val(attrs.angle);
+                $('#boxWidthSlider').slider('setValue', attrs.width * FOOT, true);
+                $('#boxDepthSlider').slider('setValue', attrs.depth * FOOT, true);
+                $('#boxAngleSlider').slider('setValue', attrs.angle, true);
                 // Stories slider
-                $('#retailValText').val(attrData.retailStory);
-                $('#officeValText').val(attrData.officeStory);
-                $('#residenValText').val(attrData.residentialStory);
+                $('#retailValText').val(attrs.retailStory);
+                $('#officeValText').val(attrs.officeStory);
+                $('#residenValText').val(attrs.residentialStory);
                 // Set slider max value to MAX_STORIES
                 $('#typeRetail').slider('setAttribute', 'max', MAX_STORIES);
                 $('#typeOffice').slider('setAttribute', 'max', MAX_STORIES);
                 $('#typeResiden').slider('setAttribute', 'max', MAX_STORIES);
-                $('#typeRetail').slider('setValue', attrData.retailStory, true);
-                $('#typeOffice').slider('setValue', attrData.officeStory, true);
-                $('#typeResiden').slider('setValue', attrData.residentialStory, true);
+                $('#typeRetail').slider('setValue', attrs.retailStory, true);
+                $('#typeOffice').slider('setValue', attrs.officeStory, true);
+                $('#typeResiden').slider('setValue', attrs.residentialStory, true);
             }
             else {
                 initialHtmlElems()
             }
         }
 
-        
+
+        function getAttributesFromGraphic(graphic){
+            var attrs = (JSON.parse(JSON.stringify(attributesTemplate)));
+            attrs.fid = graphic.attributes.fid;
+            attrs.pinNumber = graphic.attributes.pinNumber;
+            attrs.zoning = graphic.attributes.zoning;
+            attrs.width = graphic.symbol.symbolLayers.items[0].width;
+            attrs.depth = graphic.symbol.symbolLayers.items[0].depth;
+            attrs.angle = graphic.symbol.symbolLayers.items[0].heading;
+            attrs.residentialStory = graphic.attributes.residentialStory;
+            attrs.residentialStoryHeight = graphic.attributes.residentialStory * FLOOR_HEIGHT_A;
+            attrs.officeStory = graphic.attributes.officeStory;
+            attrs.officeStoryHeight = graphic.attributes.officeStory * FLOOR_HEIGHT_A;
+            attrs.retailStory = graphic.attributes.retailStory;
+            console.log('retail story', attrs.retailStory);
+            attrs.retailStoryHeight = graphic.attributes.retailStoryHeight * FLOOR_HEIGHT_B;
+            console.log('retail story H', attrs.retailStoryHeight);
+            console.log(attrs);
+            return attrs;
+        }
+
         ////////////////////////////////////////////////////////////
         //////////////////////// Events ///////////////////////////
         ///////////////////////////////////////////////////////////
@@ -815,14 +836,14 @@
                 if(picked.results[0].graphic){
                     var pickedItem = picked.results[0].graphic;
                     console.log('picked', picked);
+                    var cloneAttrs = getAttributesFromGraphic(pickedItem);
                     currentItem.fid = pickedItem.attributes.fid;
-                    currentItem.attributes = pickedItem.attributes;
+                    currentItem.attributes = cloneAttrs;
                     currentItem.geometry = pickedItem.geometry;
                     var geom = currentItem.geometry;
-                    var attrs = currentItem.attributes;
-                    var totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
-                    identifySelection(geom.x, geom.y, totalH, attrs);
-                    updateHtmlElems(attrs);
+                    var totalH = cloneAttrs.retailStoryHeight + cloneAttrs.officeStoryHeight + cloneAttrs.residentialStoryHeight;
+                    identifySelection(geom.x, geom.y, totalH, cloneAttrs);
+                    updateHtmlElems(cloneAttrs);
                     originalReport();
                     updateNewScenarioReport();
                 }
@@ -973,6 +994,7 @@
                 } else {
                     $('#areaPlanInfo').val('on');
                     $('#accordion').hide();
+                    //$('#accordionTwo').hide();
                 }
             }) // areaPlanInfo event
 
@@ -1021,7 +1043,8 @@
             // Slider - Dimentions
             $('#boxWidthSlider').slider().on('slide', function(evt){
                 var widthVal = $('#boxWidthSlider').data('slider').getValue();
-                updateDimentions(widthVal * METER, 'width'); // Update graphics
+                var widthValM = widthVal * METER;
+                updateDimentions(widthValM, 'width'); // Update graphics
                 $('#boxWidthText').val(widthVal);
                 updateNewScenarioReport();
             });
@@ -1113,7 +1136,7 @@
             $('.popup-submit').on('click', function(){
                 $('#new-building-popup').popup('hide');
                 currentItem.fid = $('#popup-name').val();
-                var attrs = $.extend(true, {}, attributes);
+                var attrs = $.extend(true, {}, attributesTemplate);
                 //console.log(currentItem.fid);
                 var coor = currentItem.geometry;
                 var totalH;
