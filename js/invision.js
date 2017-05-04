@@ -154,7 +154,7 @@ require([
       let planningNode = dom.byId('planning');
       domStyle.set(planningNode, 'display', 'block');
       planningView();
-    }, 7000);
+    }, 5000);
 
 
     window.zoomToLocation = function () {
