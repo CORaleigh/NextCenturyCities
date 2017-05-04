@@ -1,44 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>City of Raleigh NC</title>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
-    <link rel="stylesheet" href="css/invision.css">
-    <link href="./third-party/c3/c3.min.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="description" content="InVision Raleigh">
+  <link rel="icon" href="https://www.esri.com/favicon.ico">
+  <title>InVision Raleigh</title>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
-    <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
-    <script src="./third-party/d3/d3.min.js"></script>
-    <!--<script src="/path/to/d3.v3.min.js" charset="utf-8"></script>-->
-    <script src="./third-party/c3/c3.min.js"></script>
- 
-    
+  <!-- Calcite Maps Bootstrap -->
+  <link rel="stylesheet" href="./dist/css/calcite-maps-bootstrap.min-v0.3.css">
 
-    <script>
-        var dojoConfig = {
-            paths: { js: location.pathname.replace(/\/[^/]+$/, '') + '/js' }
-        };
-    </script>
-    <script src="https://js.arcgis.com/4.3/"></script>
-    <script type='text/javascript'>
-        require([
-            'js/invision',
-            'dojo/domReady!'
-        ], function(invision){
-            console.log('invision.js loaded...')
-        })
-    </script>
+  <!-- Calcite Maps -->
+  <link rel="stylesheet" href="./dist/css/calcite-maps-arcgis-4.x.min-v0.3.css">
+
+  
+  <link rel="stylesheet" href="./css/calcite_web_used.css">
+  <!-- InVision Raleigh -->
+  <link rel="stylesheet" href="./css/invision.css">
+  <!-- ArcGIS JS 4.x -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
 </head>
 
-<body>
-    <div id="viewDiv"></div>
+<body class="calcite-maps calcite-nav-top">
     <!--splash-->
     <div id="splash">
         <div id="splash-container" class="centered">
@@ -48,429 +34,341 @@
                 </div>
                 <div class="col-md-7" style="padding: 50px 50px 50px 50px;">
                     <h1 style="text-align:center; margin-top: 50px; margin-bottom: 25px">InVision Raleigh</h1>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.
                     </p>
                     <br><br><br>
                     <center><img src="img/loading-blue.gif" /></center>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
-
-
     <!--planning area-->
-    <div id="planning" class="centered">
-        <div class="container" style="width: 70%; padding-left: 15px; margin-top: 9%; margin-bottom: 30px;">
-            <div class="row">
-                <h1 style="font-weight: bold; font-size: 55px; color: lightseagreen;">InVision Raleigh</h1>
-            </div>
-        </div>
-            
-        <div class="container" style="width: 70%; height: 60%; position: relative; overflow-y: scroll; overflow-x: hidden;">
-            <!-- row 1 -->
-            <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3 ">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area A</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                            
-                                <a href="#" class="btn btn-primary " role="button" onclick="zoomToLocation()">
-                                Map 
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area B</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area C</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area D</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END row 1 -->
-
-            <!-- row 2 -->
-            <div class="row" style="margin-top: 15px;">
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area E</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area F</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua.
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area G</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card">
-                        <img class="card-img-top" src="img/placeholder.jpg" alt="" style="height:180px;">
-                        <div class="card-block">
-                            <h3 class="card-title">Planning Area H</h3>
-                            <div class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                tempor incididunt ut labore et dolore magna aliqua. 
-                                <a href="#" class="card-link">more...</a>
-                            </div>
-                            <div style="margin-top: 25px; text-align: center;">
-                                <a href="#" class="btn btn-primary" >Go somewhere</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END row 2 -->
-        </div>
+    <div id="planning">
         <!-- container -->
+        <div class="grid-container" style="width:67%; margin-top:9%; padding:20px 0 30px 10px;">
+            <div class="column-22">
+                <h1 style="font-weight:bold; font-size:55px; color:lightseagreen;">InVision Raleigh</h1>
+            </div>
+        </div>
+        <div class="grid-container" style="width:67%; height:60%; padding:0 0 30px 10px; overflow-y: scroll; overflow-x: hidden;">
+            <div class="column-22">
+                <div class="block-group block-group-4-up">
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area A</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn" onclick="zoomToLocation()">Map</a>
+                        </div>
+                    </div>
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="Bridge Club, 1954">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area B</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="Bridge Club, 1954">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area C</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="Bridge Club, 1954">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area D</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-22" style="margin-top:15px;">
+                <div class="block-group block-group-4-up">
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area E</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="Bridge Club, 1954">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area F</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="Bridge Club, 1954">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area G</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card block">
+                        <figure class="card-image-wrap">
+                            <img class="card-image" src="img/placeholder.jpg" alt="Bridge Club, 1954">
+                        </figure>
+                        <div class="card-content">
+                            <h3 style="margin-top: 10px;">Planning Area H</h3>
+                            <p class="font-size--1 card-last">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempora.
+                                <a href="#" class="card-link">more...</a></p>
+                            <br>
+                            <a href="#" class="btn">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- grid-container: planning area cards -->
     </div>
 
-    <!-- planning: area plan zoom -->
+      <!-- Map Container  -->
+    <div class="calcite-map calcite-map-absolute">
+        <div id="viewDiv" ></div>
+        <div id="clock" style="width: 200px; height:200px;"></div>
+    </div>
+
     <div id="area-plan">
-            <a id="backBtn" class="btn btn-primary" href="#" role="button">Back</a>
-            <button id="areaPlanInfo" type="button" class="btn btn-primary">Area Plan Info</button>
-            <button id="lyr3d" type="button" class="btn btn-primary" value="on">Textured 3D Buildings</button>
-            <button id="explore" type="button" class="btn btn-primary" value="on">Explore Scenario</button>
-            <!--<button id="play" type="button" class="btn btn-primary" value="on">Play</button>-->
-            <div id="new-building-popup" style="background-color: #fff; outline-color: black; 
-            padding: 20px 20px 20px 20px; width: 300px; border-radius: 20px;">
-                <div class="form-group">
-                    <label for="popup-name">Name: </label>
-                    <input type="text" class="form-control" id="popup-name">
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="popup-width">Width: </label>
-                            <input type="text" class="form-control" id="popup-width">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="popup-depth">Depth: </label>
-                            <input type="text" class="form-control" id="popup-depth">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="popup-retail-stories">Retail: </label>
-                            <input type="text" class="form-control" id="popup-retail-stories">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="popup-office-stories">Office: </label>
-                            <input type="text" class="form-control" id="popup-office-stories">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="popup-residen-stories">Residential: </label>
-                            <input type="text" class="form-control" id="popup-residen-stories">
-                        </div>
-                    </div>
-                </div>
-                <button class="popup-close">Cancel</button>
-                <button class="popup-submit">Submit</button>
-            </div><!-- new-building-popup -->
+        <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark" style="background-color: rgb(0, 121, 193); padding-left:100px;">
 
-            
-            <!-- Report popup -->
-            <div id="report-popup" style="background-color: #fff; outline-color: black; 
-                        padding: 20px 20px 20px 20px; width: 700px; display: none;">
-                <h5 >Total Change: </h5>
-                <!--<h5 style="padding-top: 30px;">Total Change</h5>-->
-                <div class="container">
-                    <div class="row" style="padding-top: 20px;">
-                        <table id="report-tableTwo" class="table table-bordered table-sm" style="padding-top: 20px">
-                            <thead>
-                                <tr>
-                                    <th>Building</th>
-                                    <th>Retail <small>(ft<sup>3</sup>)<small></th>
-                                    <th>Office <small>(ft<sup>3</sup>)<small></th>
-                                    <th>Residential <small>(ft<sup>3</sup>)<small></th>
-                                    <th>Area <small>(ft<sup>2</sup>)</small></th>
-                                    <th>Volume <small>(ft<sup>3</sup>)<small></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Current</th>
-                                    <td class="t-cur-retail-vol">0</td>
-                                    <td class="t-cur-office-vol">0</td>
-                                    <td class="t-cur-residen-vol">0</td>
-                                    <td class="t-cur-area">0</td>
-                                    <td class="t-cur-vol">0</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">New Scenario</th>
-                                    <td class="t-new-retail-vol">0</td>
-                                    <td class="t-new-office-vol">0</td>
-                                    <td class="t-new-residen-vol">0</td>
-                                    <td class="t-new-area">0</td>
-                                    <td class="t-new-vol">0</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Change</th>
-                                    <td class="t-diff-retail-vol">0</td>
-                                    <td class="t-diff-office-vol">0</td>
-                                    <td class="t-diff-residen-vol">0</td>
-                                    <td class="t-diff-area">0</td>
-                                    <td class="t-diff-vol">0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="col-md-6" >
-                            <div id="canvasOne"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="canvasTwo"></div>
-                        </div>
-                    </div>
-                    <!-- row -->
-                </div>
-                <!-- container -->
-                <button class="popup-close" sytle="padding-top: 30px;">Close</button>
-            </div>    
-            <!-- report-popup --> 
+            <!-- Title -->
+            <div class="calcite-title calcite-overflow-hidden">
+                <span class="calcite-title-main">InVision Raleigh</span>
+                <span class="calcite-title-divider hidden-xs"></span>
+                <span class="calcite-title-sub hidden-xs"><a target="_blank" href="https://www.raleighnc.gov" style="color: #fff">City of Raleigh</a></span>
+            </div>
+            <!-- Nav -->
+            <ul class="calcite-nav nav navbar-nav">
+                <li><a id="home" role="tab" data-toggle="tab" href="#"><span class="esri-icon-home"></span> Home</a></li>
+                <li><a id="areaPlanInfo" role="tab" data-toggle="collapse" data-target="#areaInfoA"><span class="esri-icon-description"></span> Area Plan Info</a></li>
+                <li><a id="explorer" role="tab" data-toggle="collapse" data-target="#panelExplorer, #collapseExplorer"><span class="esri-icon-organization"></span> Explore Scenario</a></li>
+                <li><a id="shadow" role="tab" data-toggle="tab" href="#"><span class="esri-icon-environment-settings"></span> Cast Shadow</a></li>
+                <li><a role="tab" data-toggle="collapse" data-target="#panelLayerList, #collapseLayerList"><span class="esri-icon-layers"></span> Layers</a></li>
+                <li><a role="tab" data-toggle="collapse" data-target="#panelBasemaps, #collapseBasemaps" aria-haspopup="true"><span class="esri-icon-basemap"></span> Basemaps</a></li>
+                <li><a role="tab" data-toggle="collapse" data-target="#panelHelp, #collapseHelp"><span class="esri-icon-question"></span> Help</a></li>
+                <!--<li><div class="calcite-navbar-search calcite-search-expander"><div id="searchWidgetDiv"></div></div></li>-->
+                <li><div class="calcite-navbar-search"><div id="searchNavDiv"  style="margin-bottom: 50px"></div></div></li>
+            </ul>
+          </nav>
+        <!--/.navbar -->
 
-            <div id="accordion" class='accordion-dimention' role="tablist" aria-multiselectable="true" style="display: none; margin-top: 30px;">
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingOne">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Planning Area
-                        </a>
-                    </h5>
-                    </div>
-                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="card-block" >
-                        <img src="img/planning_area_placeholder.jpg" style="padding-bottom: 15px">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
+        <!-- Panel Container -->
+        <div class="calcite-panels calcite-panels-right calcite-bg-light calcite-text-dark panel-group"  role="tablist" aria-multiselectable="true" style="max-height: none;">
+
+            <!-- panel settings --> 
+            <div id="panelExplorer" class="panel collapse">
+
+                <div id="headingExplorer" class="panel-heading" style="background-color: rgba(0, 121, 193, 0.6);">
+                    <div class="panel-title">
+                        <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseExplorer" aria-expanded="true" aria-controls="collapseExplorer"><span class="esri-icon-organization" style="color: #fff" aria-hidden="true"></span><span class="panel-label" style="color: #fff;">Explore Scenario</span></a>
+                        <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelExplorer"><span class="esri-icon esri-icon-close" aria-hidden="true" style="color: #fff;"></span></a>
                     </div>
                 </div>
+                <div id="collapseExplorer" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingExplorer">
+                    <div class="panel-body" style="width: 500px; max-height: 850px;">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <!--<li role="presentation" class="active"><a href="#title" aria-controls="title" role="tab" data-toggle="tab">Name</a></li>-->
+                            <li role="presentation" class="active"><a href="#about-building" aria-controls="about-building" role="tab" data-toggle="tab">About Building</a></li>
+                            <li role="presentation" ><a href="#explorer-tab" aria-controls="explorer-tab" role="tab" data-toggle="tab">Explore</a></li>
+                            <li role="presentation"><a href="#total-change" aria-controls="total-change" role="tab" data-toggle="tab">Total Change</a></li>
+                            <li role="presentation"><a href="#layerList-checkbox" aria-controls="layerList-checkbox" role="tab" data-toggle="tab">Layers</a></li>
+                        </ul>
 
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingTwo">
-                    <h5 class="mb-0">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Parks and Greenways
-                        </a>
-                    </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="card-block">
-                        <!--<img src="img/greenway_placeholder.jpg" style="padding-bottom: 15px">-->
-                        <br>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                    </div>
-                </div>
+                        <div class="tab-content">
 
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingThree">
-                    <h5 class="mb-0">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Population
-                        </a>
-                    </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="card-block">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                            <!--<img src="img/population_placeholder.png" style="padding: 15px 0 15px 0;">-->
-                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingFour">
-                    <h5 class="mb-0">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-                        Current Development
-                        </a>
-                    </h5>
-                    </div>
-                    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-                        <div class="card-block">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                        </div>
-                    </div>
-                </div>
-
-            </div><!-- accordion -->
-
-            <div id="accordionTwo" class='accordion-dimention' role="tablist" aria-multiselectable="true" style="display: none; margin-top: 30px;">
-               <div class="card">
-                    <div class="card-header" role="tab" id="headingOne-2">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseOne-2" aria-expanded="false">
-                            Explore Scenario 
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapseOne-2" class="collapse show" role="tabpanel">
-                        <div class="card-block">
-                            <div class="container">
-                                <h5>Selected: <span class="currentItem"></span></h5>
-                                <h6 style="padding-top: 20px;">Dimentions</h6>
-                                    <div class="row">
-                                        <table>
-                                            <tr style="height:50px;">
-                                                <th class="col-md-2">Width <small>(ft)</small>:</td>
-                                                <td class="col-md-7"><input id="boxWidthSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" 
-                                                    data-slider-max="1000" data-slider-value="" data-slider-step="1" /></td>
-                                                <td class="col-md-3"><input id="boxWidthText" class="dimentions-textarea" type="text"></td>
+                            <!-- Tab - About Building -->
+                            <div role="tabpanel" class="tab-pane active" id="about-building">
+                                <div class="calcite-form-title">About the selected building's current settings. Double-click to select a building or create a new.</div>
+                                <div id="no-original-txt" style="color: red; display: none">!!New building.</div>
+                                <div class="form-horizontal calcite-form-padding">
+                                    <div class="col-xs-9">
+                                        <table class="table table-bordered table-sm table-responsive">
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">FID</th>
+                                                <td class="col-xs-6 about-fid"></td>
                                             </tr>
-                                            <tr style="height:50px;">
-                                                <th class="col-md-2">Depth <small>(ft)</small>: </td>
-                                                <td class="col-md-7"><input id="boxDepthSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" 
-                                                    data-slider-max="1000" data-slider-value="" data-slider-step="1" /></td>
-                                                <td class="col-md-3"><input id="boxDepthText" class="dimentions-textarea" type="text"></td>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Zoning</th>
+                                                <td class="col-xs-6 about-zoning"></td>
                                             </tr>
-                                            <tr style="height:50px;">
-                                                <th class="col-md-2">Angle <small>(degree)</small>: </td>
-                                                <td class="col-md-7"><input id="boxAngleSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" 
-                                                    data-slider-max="360" data-slider-value="" data-slider-step="1" /></td>
-                                                <td class="col-md-3"><input id="boxAngleText" class="dimentions-textarea" type="text"></td>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">PIN Number</th>
+                                                <td class="col-xs-6 about-pinNum"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Parcel ID</th>
+                                                <td class="col-xs-6 about-parcelId"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Retail Stories</th>
+                                                <td class="col-xs-6 about-retail"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Office Stories</th>
+                                                <td class="col-xs-6 about-office"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Residential Stories</th>
+                                                <td class="col-xs-6 about-residential"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Width</th>
+                                                <td class="col-xs-6 about-width"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Depth</th>
+                                                <td class="col-xs-6 about-depth"></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="col-xs-6" scope="row">Rotation</th>
+                                                <td class="col-xs-6 about-angle"></td>
                                             </tr>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
 
-                                <h6 style="padding-top: 20px;">Number of Floors</h6>
-                                    <div class="row">
-                                            <table>
-                                                <tr style="height:50px;">
-                                                    <th class="col-md-2">Retail: </td>
-                                                    <td class="col-md-7"><input id="typeRetail" data-slider-id='ex1Slider' type="text" data-slider-min="0" 
-                                                        data-slider-max="40" data-slider-value="" data-slider-step="1" /></td>
-                                                    <td class="col-md-3"><input id="retailValText" class="stories-textarea" type="text"></td>
-                                                </tr>
-                                                <tr style="height:50px;">
-                                                    <th class="col-md-2">Office: </td>
-                                                    <td class="col-md-7"><input id="typeOffice" data-slider-id='ex1Slider' type="text" data-slider-min="0" 
-                                                        data-slider-max="40" data-slider-value="" data-slider-step="1" /></td>
-                                                    <td class="col-md-3"><input id="officeValText" class="stories-textarea" type="text"></td>
-                                                </tr>
-                                                <tr style="height:50px;">
-                                                    <th class="col-md-2">Residential: </td>
-                                                    <td class="col-md-7"><input id="typeResiden" data-slider-id='ex1Slider' type="text" data-slider-min="0" 
-                                                        data-slider-max="40" data-slider-value="" data-slider-step="1" /></td>
-                                                    <td class="col-md-3"><input id="residenValText" class="stories-textarea" type="text"></td>
-                                                </tr>
-                                            </table>
+                            <!-- Tab - Explorer Scenario -->
+                            <div role="tabpanel" class="tab-pane" id="explorer-tab">
+                                <h4 style="padding-top: 15px; margin-bottom: 0;">Selected: <span class="currentItem"></span></h4>
+                                <div class="calcite-form-title">Set dimentions</div>
+                                <div class="form-horizontal calcite-form-padding">
+                                    <div class="form-group">
+                                        <label for="boxWidthSlider" class="col-xs-2 control-label">Width</label>
+                                        <div class="col-xs-6" style="margin-bottom: 0">
+                                            <input id="boxWidthSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="1000" data-slider-value=""
+                                                data-slider-step="1" />
+                                        </div>
+                                        <div class="col-xs-3">
+                                             <form role="form" class="form-inline">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" style="width: 70%" id="boxWidthText"><small> ft</small>
+                                                </div>
+                                            </form>                                           
+                                        </div>
                                     </div>
 
-                                <div class="row" style="padding-top: 30px;">
-                                    <div class="col-md-6">
-                                        <button id="refresh-current" type="button" class="btn btn-primary btn-sm" value="on">Refresh Current</button>
+                                    <div class="form-group">
+                                        <label for="boxDepthSlider" class="col-xs-2 control-label">Depth</label>
+                                        <div class="col-xs-6">
+                                            <input id="boxDepthSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="1000" data-slider-value=""
+                                                data-slider-step="1" />
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <form role="form" class="form-inline">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" style="width: 70%" id="boxDepthText"><small> ft</small>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <button id="refresh-all" type="button" class="btn btn-primary btn-sm" value="on" style="float: right !important;" >Refresh All</button>
+
+                                    <div class="form-group">
+                                        <label for="boxAngleSlider" class="col-xs-2 control-label">Rotation</label>
+                                        <div class="col-xs-6">
+                                            <input id="boxAngleSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="360" data-slider-value=""
+                                                data-slider-step="1" />
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <form role="form" class="form-inline">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" style="width: 70%" id="boxAngleText"><small> deg</small>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calcite-form-title">Set number of floors</div>
+
+                                <div class="form-horizontal calcite-form-padding">
+                                    <div class="form-group">
+                                        <label for="typeRetail" class="col-xs-2 control-label">Retail</label>
+                                        <div class="col-xs-6" style="margin-bottom: 0">
+                                            <input id="typeRetail" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="1000" data-slider-value=""
+                                                data-slider-step="1" />
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="retailValText" class="form-control" type="text">
+                                            <!--<label style="text-align: right; float: right;" >ft</p>-->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="typeOffice" class="col-xs-2 control-label">Office</label>
+                                        <div class="col-xs-6">
+                                            <input id="typeOffice" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="1000" data-slider-value=""
+                                                data-slider-step="1" />
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="officeValText" class="form-control" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="typeResiden" class="col-xs-2 control-label">Residential</label>
+                                        <div class="col-xs-6">
+                                            <input id="typeResiden" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="360" data-slider-value=""
+                                                data-slider-step="1" />
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <input id="residenValText" class="form-control" type="text">
+                                        </div>
                                     </div>
                                 </div>
 
-                                <h5 style="padding-top: 20px;"><strong>Report</strong></h5>
-                                <div class="row">
+                                <div class="form-horizontal calcite-form-padding">
+                                    <div class="form-group">
+                                        <div class="col-xs-4">
+                                            <button id="refresh-current" type="button" class="btn btn-primary btn-block" value="on">Refresh Current</button>
+                                        </div>
+                                        <div class="col-xs-4"></div>
+                                        <div class="col-xs-4">
+                                        <button id="refresh-all" type="button" class="btn btn-primary" >Refresh All</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="calcite-form-title">Modification</div>
+                                <div class="form-horizontal calcite-form-padding">
                                     <table id="report-tableOne" class="table table-bordered table-sm" style="padding-top: 20px">
                                         <thead>
                                             <tr>
@@ -509,49 +407,291 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div><!-- row -->
-
-                                <div class="row">
-                                    <button id="report-all" type="button" class="btn btn-primary" >Report</button>
-                                    <!--<a id="report-all" class="btn btn-primary" target="_blank"  href="./report.html" role="button">Report</a>-->
                                 </div>
-                                <!-- row -->
-                            </div><!-- container -->
-                        </div><!-- card-block -->
-                    </div><!-- collapseOne-2-->
-                </div> <!-- card -->
-            </div><!-- accordionTwo-->
-
-
-
-             <!--<div id="accordionThree" class='accordion-dimention' role="tablist" aria-multiselectable="true" style="display: none; margin-top: 30px;">
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingOne-3">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" data-parent="#accordionThree" href="#collapseOne-3" aria-expanded="true" aria-controls="collapseOne">
-                        Play
-                        </a>
-                    </h5>
-                    </div>
-                    <div id="collapseOne-3" class="collapse show" role="tabpanel" aria-labelledby="headingOne-3">
-                    <div class="card-block" >
-                        <div class="container">
-                            <p>You clicked: <span id="lat-long"></span></p>
-                            <div class="row">
-
                             </div>
+
+                            <!-- Tab - Total Change Report -->
+                            <div role="tabpanel" class="tab-pane" id="total-change">
+                                <div class="calcite-form-title">Total Change</div>
+                                <div class="form-horizontal calcite-form-padding">
+                                    <button id="report-all" type="button" class="btn btn-primary" >Total Change Report</button>
+                                </div>
+                            </div>
+
+                            <!-- Layer Lists -->
+                            <div role="tabpanel" class="tab-pane" id="layerList-checkbox">
+                                <h4 style="margin-top: 30px">Layers</h4>
+                                <div class="form-group">
+                                    <div id="explorer-layerList"></div>   
+                                </div>
+                                <h4 style="margin-top: 30px">Legend</h4>
+                                    <div class="form-group">
+                                        <div id="explorer-legend"></div>
+                                    </div>
+                            </div>
+
                         </div>
-                        
-                        
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <!-- /.tab-content -->
                     </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel-collapse -->
+            </div>
+            <!-- /.panel -->
+            <!-- Basemaps Panel -->
+            <div id="panelBasemaps" class="panel collapse">
+                <div id="headingBasemaps" class="panel-heading" role="tab" style="background-color: rgba(0, 121, 193, 0.6);">
+                    <div class="panel-title">
+                        <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false" aria-controls="collapseBasemaps"><span class="glyphicon glyphicon-th-large" aria-hidden="true" style="color: #fff;"></span><span class="panel-label" style="color: #fff;">Basemaps</span></a>
+                        <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelBasemaps"><span class="esri-icon esri-icon-close" aria-hidden="true" style="color: #fff;"></span></a>
                     </div>
                 </div>
+                <div id="collapseBasemaps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBasemaps">
+                    <div class="panel-body">
+                        <select id="selectBasemapPanel" class="form-control">
+                            <option value="planning" data-vector="vector-streets-planning">World 3D Planning</option>
+                            <option value="streets" data-vector="vector-streets">Streets</option>
+                            <option value="satellite" data-vector="satellite" selected>Satellite</option>
+                            <option value="hybrid" data-vector="hybrid">Hybrid</option>
+                            <option value="national-geographic" data-vector="national-geographic">National Geographic</option>
+                            <option value="topo" data-vector="vector-streets-relief">Topographic</option>
+                            <option value="gray" data-vector="vector-canvas-light">Gray</option>
+                            <option value="dark-gray" data-vector="vector-canvas-dark">Dark Gray</option>
+                            <option value="osm" data-vector="osm">Open Street Map</option>
+                            <option value="dark-gray" data-vector="vector-streets-night">Streets Night</option>
+                            <option value="streets" data-vector="vector-streets-mobile">Streets Mobile</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-            </div>-->
-            <!-- accordionThree -->
+            <!-- LayerList panel -->
+            <div id="panelLayerList" class="panel collapse">
+                <div id="headingLayerList" class="panel-heading" role="tab" style="background-color: rgba(0, 121, 193, 0.6);">
+                    <div class="panel-title">
+                        <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLayerList" aria-expanded="false" aria-controls="collapseLayerList"><span class="esri-icon-layers" aria-hidden="true" style="color: #fff;"></span><span class="panel-label" style="color: #fff;">List Layers</span></a>
+                        <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelLayerList"><span class="esri-icon esri-icon-close" aria-hidden="true" style="color: #fff;"></span></a>
+                    </div>
+                </div>
+                <div id="collapseLayerList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLayerList">
+                    <div class="panel-body" style="max-height: 850px;">
+                        <h5>Layers</h5>
+                        <div id="layerList"></div>
+                        <h5 style="margin-top: 30px">Legend</h5>
+                        <div id="legend"></div>
+                    </div>
+                </div>
+            </div>
 
-    </div><!-- END area-plan -->
+            <div id="panelHelp" class="panel collapse">
+                <div id="headingHelp" class="panel-heading" role="tab" style="background-color: rgba(0, 121, 193, 0.6);">
+                    <div class="panel-title">
+                        <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp"><span class="esri-icon-question" aria-hidden="true" style="color: #fff;"></span><span class="panel-label" style="color: #fff;">List Layers</span></a>
+                        <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelHelp"><span class="esri-icon esri-icon-close" aria-hidden="true" style="color: #fff;"></span></a>
+                    </div>
+                </div>
+                <div id="collapseHelp" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingHelp">
+                    <div class="panel-body">
+                        <p>Coming soon!!</p><br><br><br>
+                        <!--<p><span class="esri-icon esri-icon-map-pin pull-left"></span><span class="info-title">Calcite Maps</span</p>
+                    <p>Use this application to quickly prototype and design map applications interactively.</p>
+                    <p>Learn more about building custom<a href="https://github.com/esri/calcite-maps"> Calcite Maps apps here</a>.</p>-->
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- /.Panel Container -->
+
+        <!-- Area Planning -->
+        <!-- Area Plan A -->
+        <div id="areaInfoA" class="areaInfo-accordion collapse in">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title areaInfo-title ">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Planning Area</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <img src="img/planning_area_placeholder.jpg" style="padding-bottom: 15px; width:100%;">
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                                ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw
+                                denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title areaInfo-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Parks and Greenways</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                                ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw
+                                denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title areaInfo-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Population</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                                ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw
+                                denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title areaInfo-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Current Development</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                                ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw
+                                denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.Area Plan A -->
+    </div>
+
+
   
+  <!-- Popups -->
+  <!-- new-building-popup -->
+    <div id="new-building-popup" style="background-color: #fff; outline-color: black; 
+                padding: 20px 20px 20px 20px; width: 300px; display: none">
+        <p>What would you like to call your proposal?</p>
+        <input type="text" class="form-control" id="popup-name" style="margin-bottom: 30px" ;>
+
+        <button class="popup-close">Cancel</button>
+        <button class="popup-submit">Submit</button>
+    </div>
+    <!-- new-building-popup -->
+
+    <!-- Report popup -->
+    <div id="report-popup" style="background-color: #fff; outline-color: black; 
+                            padding: 20px 20px 20px 20px; width: 700px; display: none;">
+        <h5>Total Change: </h5>
+        <!--<h5 style="padding-top: 30px;">Total Change</h5>-->
+         <div class="form-horizontal calcite-form-padding">
+             <table id="report-tableTwo" class="table table-bordered table-sm" style="padding-top: 20px">
+                <thead>
+                    <tr>
+                        <th>Building</th>
+                        <th>Retail <small>(ft<sup>3</sup>)<small></th>
+                        <th>Office <small>(ft<sup>3</sup>)<small></th>
+                        <th>Residential <small>(ft<sup>3</sup>)<small></th>
+                        <th>Area <small>(ft<sup>2</sup>)</small></th>
+                        <th>Volume <small>(ft<sup>3</sup>)<small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Current</th>
+                        <td class="t-cur-retail-vol">0</td>
+                        <td class="t-cur-office-vol">0</td>
+                        <td class="t-cur-residen-vol">0</td>
+                        <td class="t-cur-area">0</td>
+                        <td class="t-cur-vol">0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">New Scenario</th>
+                        <td class="t-new-retail-vol">0</td>
+                        <td class="t-new-office-vol">0</td>
+                        <td class="t-new-residen-vol">0</td>
+                        <td class="t-new-area">0</td>
+                        <td class="t-new-vol">0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Change</th>
+                        <td class="t-diff-retail-vol">0</td>
+                        <td class="t-diff-office-vol">0</td>
+                        <td class="t-diff-residen-vol">0</td>
+                        <td class="t-diff-area">0</td>
+                        <td class="t-diff-vol">0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="col-md-6">
+                <div id="canvasOne"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="canvasTwo"></div>
+            </div>
+            <button class="popup-close" sytle="padding-top: 30px;">Close</button>
+         </div>
+
+    </div>    
+    <!-- report-popup --> 
+      <!-- /.Popups -->
+
+
+
+ 
+    <script>
+    var dojoConfig = {
+        paths: { js: location.pathname.replace(/\/[^/]+$/, '') + '/js' }
+    };
+    </script>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all  plugins or individual files as needed -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
+  <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+  <script src="./third-party/d3/d3.min.js"></script>
+   <script src="./third-party/c3/c3.min.js"></script>
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <!--script src="../../assets/js/ie10-viewport-bug-workaround.js"></script-->
+
+  <!-- Calcite Maps -->
+  <script src="./dist/js/jquery/calcitemaps-v0.3.js"></script>
+
+    <!-- ArcGIS JS 4.0 -->
+  <script src="https://js.arcgis.com/4.3/"></script>
+
+  <script type='text/javascript'>
+    require([
+      'js/invision',
+      'dojo/domReady!'
+    ], function (invision) {
+      console.log('invision.js loaded...')
+    })
+  </script> 
+
 </body>
 </html>
+
