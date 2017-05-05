@@ -199,7 +199,7 @@
 
                 <div id="headingExplorer" class="panel-heading" style="background-color: rgba(0, 121, 193, 0.6);">
                     <div class="panel-title">
-                        <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseExplorer" aria-expanded="true" aria-controls="collapseExplorer"><span class="esri-icon-organization" style="color: #fff" aria-hidden="true"></span><span class="panel-label" style="color: #fff;">Explore Scenario</span></a>
+                        <a class="panel-toggle" role="button" data-toggle="collapse" data-target="#collapseExplorer" aria-expanded="true" aria-controls="collapseExplorer"><span class="esri-icon-organization" style="color: #fff" aria-hidden="true"></span><span class="panel-label" style="color: #fff;">Explore Scenario</span></a>
                         <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelExplorer"><span class="esri-icon esri-icon-close" aria-hidden="true" style="color: #fff;"></span></a>
                     </div>
                 </div>
@@ -210,14 +210,17 @@
                             <li role="presentation" class="active"><a href="#about-building" aria-controls="about-building" role="tab" data-toggle="tab">About Building</a></li>
                             <li role="presentation" ><a href="#explorer-tab" aria-controls="explorer-tab" role="tab" data-toggle="tab">Explore</a></li>
                             <li role="presentation"><a href="#total-change" aria-controls="total-change" role="tab" data-toggle="tab">Total Change</a></li>
-                            <li role="presentation"><a href="#layerList-checkbox" aria-controls="layerList-checkbox" role="tab" data-toggle="tab">Layers</a></li>
+                            <li role="presentation"><a href="#layerList-checkbox" aria-controls="layerList-checkbox" role="tab" data-toggle="tab"><span class="esri-icon-layers"></span></a></li>
+                            <li role="presentation"><a href="#how-to" aria-controls="how-to" role="tab" data-toggle="tab"><span class="esri-icon-question"></span></a></li>
                         </ul>
 
                         <div class="tab-content">
 
                             <!-- Tab - About Building -->
                             <div role="tabpanel" class="tab-pane active" id="about-building">
-                                <div class="calcite-form-title">About the selected building's current settings. Double-click to select a building or create a new.</div>
+                                <div class="calcite-form-title">The table below shows the selected building's current settings.<br>
+                                <span style="color: red; font-weight: bold;">Double-click</span> to 
+                                <span style="font-weight: bold; color: green;">select a building</span> or <span style="color: green; font-weight: bold;">create a new</span>.</div>
                                 <div id="no-original-txt" style="color: red; display: none">!!New building.</div>
                                 <div class="form-horizontal calcite-form-padding">
                                     <div class="col-xs-9">
@@ -270,7 +273,7 @@
                             <!-- Tab - Explorer Scenario -->
                             <div role="tabpanel" class="tab-pane" id="explorer-tab">
                                 <h4 style="padding-top: 15px; margin-bottom: 0;">Selected: <span class="currentItem"></span></h4>
-                                <div class="calcite-form-title">Set dimentions</div>
+                                <div class="calcite-form-title">Set dimensions</div>
                                 <div class="form-horizontal calcite-form-padding">
                                     <div class="form-group">
                                         <label for="boxWidthSlider" class="col-xs-2 control-label">Width</label>
@@ -281,7 +284,7 @@
                                         <div class="col-xs-3">
                                              <form role="form" class="form-inline">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" style="width: 70%" id="boxWidthText"><small> ft</small>
+                                                    <input type="text" class="form-control" style="width: 70%" id="boxWidthText" autocomplete="off"><small> ft</small>
                                                 </div>
                                             </form>                                           
                                         </div>
@@ -296,7 +299,7 @@
                                         <div class="col-xs-3">
                                             <form role="form" class="form-inline">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" style="width: 70%" id="boxDepthText"><small> ft</small>
+                                                    <input type="text" class="form-control" style="width: 70%" id="boxDepthText"autocomplete="off" ><small> ft</small>
                                                 </div>
                                             </form>
                                         </div>
@@ -311,13 +314,13 @@
                                         <div class="col-xs-3">
                                             <form role="form" class="form-inline">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" style="width: 70%" id="boxAngleText"><small> deg</small>
+                                                    <input type="text" class="form-control" style="width: 70%" id="boxAngleText"autocomplete="off" ><small> deg</small>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="calcite-form-title">Set number of floors</div>
+                                <div class="calcite-form-title">Set number of floors (maximum 40 floors)</div>
 
                                 <div class="form-horizontal calcite-form-padding">
                                     <div class="form-group">
@@ -327,7 +330,7 @@
                                                 data-slider-step="1" />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input id="retailValText" class="form-control" type="text">
+                                            <input id="retailValText" class="form-control" type="text" autocomplete="off">
                                             <!--<label style="text-align: right; float: right;" >ft</p>-->
                                         </div>
                                     </div>
@@ -339,7 +342,7 @@
                                                 data-slider-step="1" />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input id="officeValText" class="form-control" type="text">
+                                            <input id="officeValText" class="form-control" type="text" autocomplete="off">
                                         </div>
                                     </div>
 
@@ -350,7 +353,7 @@
                                                 data-slider-step="1" />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input id="residenValText" class="form-control" type="text">
+                                            <input id="residenValText" class="form-control" type="text" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -412,9 +415,15 @@
 
                             <!-- Tab - Total Change Report -->
                             <div role="tabpanel" class="tab-pane" id="total-change">
-                                <div class="calcite-form-title">Total Change</div>
+                                <div class="calcite-form-title">Click "Total Change Report" button to see total Change. 
+                                    The total change is applied to existing buildings. 
+                                    Currently, newly created buildings are not supported (i.e. are not taken into account) by the total change report.</div>
                                 <div class="form-horizontal calcite-form-padding">
-                                    <button id="report-all" type="button" class="btn btn-primary" >Total Change Report</button>
+                                    <div class="col-xs-4"></div>
+                                    <div class="col-xs-4">
+                                        <button id="report-all" type="button" class="btn btn-primary" >Total Change Report</button>
+                                    </div>
+                                    <div class="col-xs-4"></div>
                                 </div>
                             </div>
 
@@ -430,6 +439,11 @@
                                     </div>
                             </div>
 
+                            <!-- How To -->
+                            <div role="tabpanel" class="tab-pane" id="how-to">
+                                <img src="img/explorer.png" class="img-responsive center-block" alt="" style="margin-top: 30px;">
+                            </div>
+                        
                         </div>
                         <!-- /.tab-content -->
                     </div>
@@ -486,7 +500,7 @@
             <div id="panelHelp" class="panel collapse">
                 <div id="headingHelp" class="panel-heading" role="tab" style="background-color: rgba(0, 121, 193, 0.6);">
                     <div class="panel-title">
-                        <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp"><span class="esri-icon-question" aria-hidden="true" style="color: #fff;"></span><span class="panel-label" style="color: #fff;">List Layers</span></a>
+                        <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp"><span class="esri-icon-question" aria-hidden="true" style="color: #fff;"></span><span class="panel-label" style="color: #fff;"> Help</span></a>
                         <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelHelp"><span class="esri-icon esri-icon-close" aria-hidden="true" style="color: #fff;"></span></a>
                     </div>
                 </div>

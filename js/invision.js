@@ -171,6 +171,7 @@ require([
         domStyle.set(areaPlanOne, 'display', 'block');
         toggleLayer(true, 'Raleigh Textured Building Models - Raleigh');
         resetVariables();
+        loadInitialGraphics();
     }
 
 
@@ -312,6 +313,7 @@ require([
     }
 
     function setGraphicsLayers(){
+      removeGraphicsLyrGraphics();
       graphicsLyr = new GraphicsLayer({
         id: 'buildings',
         elevationInfo: { mode: 'relative-to-ground' },
@@ -329,6 +331,15 @@ require([
         listMode: 'hide'
       });
       sceneView.map.add(graphicsLyrSelectionSym);
+    }
+
+    function removeGraphicsLyrGraphics(){
+      if (!graphicsLyr === null || !graphicsLyr === undefined){
+        graphicsLyr.graphics.removeAll();
+      }
+      if (!graphicsLyrSelectionSym === null || !graphicsLyrSelectionSym === undefined){
+        graphicsLyrSelectionSym.graphics.removeAll();
+      }
     }
 
 
@@ -596,6 +607,7 @@ require([
       var totalH = attrs.retailStoryHeight + attrs.officeStoryHeight + attrs.residentialStoryHeight;
       identifySelection(coor.x, coor.y, totalH, attrs);
     }
+
 
     function compareFidObject(fid) {
       var original = getOriginalDataByFid(fid);
@@ -1053,6 +1065,7 @@ require([
 
             updateSelection();
             updateHtmlElems(currentItem.attributes);
+            updateAboutBuilding();
             originalReport();
             updateNewScenarioReport();
           }); // END hitTest
@@ -1186,18 +1199,69 @@ require([
       $('#boxWidthText').val(widthVal);
       updateNewScenarioReport();
     });
+
     $('#boxDepthSlider').slider().on('slide', function (evt) {
       var depthVal = $('#boxDepthSlider').data('slider').getValue();
       updateDimentions(depthVal * METER, 'depth');
       $('#boxDepthText').val(depthVal);
       updateNewScenarioReport();
     });
+
     $('#boxAngleSlider').slider().on('slide', function (evt) {
       var angleVal = $('#boxAngleSlider').data('slider').getValue();
       updateDimentions(angleVal, 'heading');
       $('#boxAngleText').val(angleVal);
       updateNewScenarioReport();
     });
+
+    // Slider Textbox - Dimentions
+    $('#boxWidthText').on('change', function(){
+      var widthVal = $('#boxWidthText').val();
+      if (!isNaN(widthVal)){
+        if (widthVal <= 1000){
+          var widthValM = widthVal * METER;
+          $('#boxWidthSlider').slider('setValue', widthVal, true);
+          updateDimentions(widthValM, 'width');
+          updateNewScenarioReport();
+        } else {
+          alert('Maximum width for this area is 1000 ft. Please input a number less than equal to 1000.');
+        }
+      } else {
+         alert('You entered "' + widthVal + '" . Please enter a number less than equal to 1000.');
+      }
+    });
+
+    $('#boxDepthText').on('change', function(){
+      var depthVal = $('#boxDepthText').val();
+      if (!isNaN(depthVal)){
+        if (depthVal <= 1000){
+          var depthValM = depthVal * METER;
+          $('#boxDepthSlider').slider('setValue', depthVal, true);
+          updateDimentions(depthValM, 'width');
+          updateNewScenarioReport();
+        } else {
+          alert('Maximum depth for this area is 1000 ft. Please input a number less than equal to 1000.');
+        }
+      } else {
+        alert('You entered "' + depthVal + '" . Please enter a number less than equal to 1000.');
+      }
+    });
+
+    $('#boxAngleText').on('change', function(){
+      var angleVal = $('#boxAngleText').val();
+      if (!isNaN(angleVal)){
+        if (angleVal <= 360){
+          $('#boxAngleSlider').slider('setValue', angleVal, true);
+          updateDimentions(angleVal, 'heading');
+          updateNewScenarioReport(); 
+        } else {
+          alert('Please input a number less than equal to 360.');
+        }
+      } else {
+        alert('You entered "' + angleVal + '" . Please enter a number less than equal to 360.');
+      }
+    });
+
 
     // Slider - Number of Stories
     $('#typeRetail').slider().on('slide', function (evt) {
@@ -1214,9 +1278,8 @@ require([
       // Update text area and report
       $('#retailValText').val(retailVal);
       updateNewScenarioReport();
-    });
+    }); 
 
-            
     $('#typeOffice').slider().on('slide', function (evt) {
       var officeVal = $('#typeOffice').data('slider').getValue();
       var otherVals = Number($('#retailValText').val()) + Number($('#residenValText').val());
@@ -1233,7 +1296,6 @@ require([
       updateNewScenarioReport();
     });
 
-
     $('#typeResiden').slider().on('slide', function (evt) {
       var residenVal = $('#typeResiden').data('slider').getValue();
       var otherVals = Number($('#retailValText').val()) + Number($('#officeValText').val());
@@ -1249,6 +1311,75 @@ require([
       $('#residenValText').val(residenVal);
       updateNewScenarioReport();
     });
+
+
+    // Number of Stories - Textbox
+    $('#retailValText').on('change', function(){
+      var retailVal = $('#retailValText').val();
+      if (!isNaN(retailVal)){
+        var otherVals = Number($('#officeValText').val()) + Number($('#residenValText').val());
+        var available = MAX_STORIES - otherVals;
+        if (retailVal > available) {
+          alert('Total number of floors needs to be less than equal to 40 floors.' +
+            'Please input a number less than equal to ' + available);
+        }
+        $('#typeRetail').slider('setAttribute', 'max', available);
+        $('#typeRetail').slider('setValue', retailVal, true);
+        $('#typeOffice').slider('setAttribute', 'max', Number($('#officeValText').val()));
+        $('#typeResiden').slider('setAttribute', 'max', Number($('#residenValText').val()));
+        if (currentItem.fid) {
+          onStoriesSliderChange(retailVal, 'retail');
+        }
+        updateNewScenarioReport();
+      } else {
+        alert('You entered "' + retailVal + '" . Please enter a number.');
+      }
+    });
+
+    $('#officeValText').on('change', function(){
+      var officeVal = $('#officeValText').val();
+      if (!isNaN(officeVal)){
+        var otherVals = Number($('#retailValText').val()) + Number($('#residenValText').val());
+        var available = MAX_STORIES - otherVals;
+        if (officeVal > available) {
+          alert('Total number of floors needs to be less than equal to 40 floors.' +
+            'Please input a number less than equal to ' + available);
+        }
+        $('#typeOffice').slider('setAttribute', 'max', available);
+        $('#typeOffice').slider('setValue', officeVal, true);
+        $('#typeRetail').slider('setAttribute', 'max', Number($('#retailValText').val()));
+        $('#typeResiden').slider('setAttribute', 'max', Number($('#residenValText').val()));
+        if (currentItem.fid) {
+          onStoriesSliderChange(officeVal, 'office');
+        }
+        updateNewScenarioReport();
+      } else {
+        alert('You entered "' + officeVal + '" . Please enter a number.');
+      }
+    });
+
+    $('#residenValText').on('change', function(){
+      var residenVal = $('#residenValText').val();
+      if (!isNaN(residenVal)){
+        var otherVals = Number($('#retailValText').val()) + Number($('#officeValText').val());
+        var available = MAX_STORIES - otherVals;
+        if (residenVal > available) {
+          alert('Total number of floors needs to be less than equal to 40 floors.' +
+            'Please input a number less than equal to ' + available);
+        }
+        $('#typeResiden').slider('setAttribute', 'max', available);
+        $('#typeResiden').slider('setValue', residenVal, true);
+        $('#typeRetail').slider('setAttribute', 'max', Number($('#retailValText').val()));
+        $('#typeOffice').slider('setAttribute', 'max', Number($('#officeValText').val()));
+        if (currentItem.fid) {
+          onStoriesSliderChange(residenVal, 'residential');
+        }
+        updateNewScenarioReport();
+      } else {
+         alert('You entered "' + residenVal + '" . Please enter a number.');
+      }
+    });
+
 
     // Refresh buttons
     $('#refresh-all').on('click', function () {
@@ -1327,7 +1458,7 @@ require([
         toggleLayer(true, 'Raleigh Textured Building Models - Raleigh');
       } 
       else {
-        loadInitialGraphics();
+        //loadInitialGraphics();
         graphicsLyr.visible = true;
         graphicsLyrSelectionSym.visible = true;
         toggleLayer(false, 'Raleigh Textured Building Models - Raleigh');
@@ -1352,7 +1483,7 @@ require([
     // Basemap events
     query('#selectBasemapPanel').on('change', function (e) {
       //app.mapView.map.basemap = e.target.options[e.target.selectedIndex].dataset.vector;
-      if (e.value == 'planning'){
+      if (e.target.value == 'planning'){
         toggleLayer(true, 'World Planning 3D Basemap');
       } else {
         toggleLayer(false, 'World Planning 3D Basemap');
