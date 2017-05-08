@@ -220,7 +220,10 @@
                             <div role="tabpanel" class="tab-pane active" id="about-building">
                                 <div class="calcite-form-title">The table below shows the selected building's current settings.<br>
                                 <span style="color: red; font-weight: bold;">Double-click</span> to 
-                                <span style="font-weight: bold; color: green;">select a building</span> or <span style="color: green; font-weight: bold;">create a new</span>.</div>
+                                <span style="font-weight: bold;">select a building</span> or 
+                                <span style="font-weight: bold;">create a new</span>. Click 
+                                <span style="font-weight: bold;">Explorer</span> tab to change dimensions, rotation, 
+                                and number of floors of the selected building.</div>
                                 <div id="no-original-txt" style="color: red; display: none">!!New building.</div>
                                 <div class="form-horizontal calcite-form-padding">
                                     <div class="col-xs-9">
@@ -272,7 +275,9 @@
 
                             <!-- Tab - Explorer Scenario -->
                             <div role="tabpanel" class="tab-pane" id="explorer-tab">
-                                <h4 style="padding-top: 15px; margin-bottom: 0;">Selected: <span class="currentItem"></span></h4>
+                                <div class="calcite-form-title">Use sliders or input numbers in textboxes to change the selected building dimensions, 
+                                    rotation angle, and number of floors.</div>
+                                <h4 style="margin-bottom: 0;">Selected: <span class="currentItem"></span></h4>
                                 <div class="calcite-form-title">Set dimensions</div>
                                 <div class="form-horizontal calcite-form-padding">
                                     <div class="form-group">
@@ -441,7 +446,51 @@
 
                             <!-- How To -->
                             <div role="tabpanel" class="tab-pane" id="how-to">
-                                <img src="img/explorer.png" class="img-responsive center-block" alt="" style="margin-top: 30px;">
+                                <div class="calcite-form-title">Selecting, creating and moving a building:</div>
+                                <div class="form-horizontal calcite-form-padding">
+                                    <table class="table table-bordered table-sm table-responsive">
+                                        <tr>
+                                            <th scope="row">Selecting</th>
+                                            <td>
+                                                <p>Left <span style="color: red;">double click</span> to select a building<br></p>
+                                                <img class="img-responsive center-block" src="img/mouse_left.png" style="width: 55px">
+                                            </td>
+                                            <td>
+                                                <img class="img-responsive center-block" src="img/select_building.png" style="width: 50%; vertical-align: middle;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Creating</th>
+                                            <td>
+                                                <p>Left <span style="color: red;">double click</span> on the map to create a new building<br></p>
+                                                <img class="img-responsive center-block" src="img/mouse_left.png" style="width: 55px">
+                                            </td>
+                                            <td>
+                                                <img class="img-responsive center-block" src="img/new_building.png" style="vertical-align: middle;" >
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Moving</th>
+                                            <td>
+                                                <p>Left <span style="color: red;">click</span> to select a building and 
+                                                <span style="color: red;">hold</span> left mouse button to move the building.<br></p>
+                                                <img class="img-responsive center-block" src="img/mouse_left.png" style="width: 55px">
+                                                <p><br><span style="color: red;">Release</span> left mouse button after moving the selected building.<br></p>
+                                            </td>
+                                            <td>
+                                                <img class="img-responsive center-block" src="img/move_building.gif" style="width: 70%; vertical-align: middle;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!--<div class="calcite-form-title">Selecting a building:</div>
+                                <img src="img/select_building.png" class="img-responsive center-block" alt="" style="margin-top: 30px;">
+                                <div class="calcite-form-title">Creating a building:</div>
+                                <img src="img/create_new_building.png" class="img-responsive center-block" alt="" style="margin-top: 30px;">
+                                <div class="calcite-form-title">Moving a building:</div>-->
+                                <!--class="img-responsive center-block"-->
+                                <!--<img src="img/move_building.gif" alt="" style="width: 50%; margin-top: 15px;">-->
                             </div>
                         
                         </div>
