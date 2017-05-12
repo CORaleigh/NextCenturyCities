@@ -169,7 +169,7 @@ require([
         domStyle.set(panelnode, 'display', 'none');
         let areaPlanOne = dom.byId('area-plan');
         domStyle.set(areaPlanOne, 'display', 'block');
-        toggleLayer(true, 'Raleigh Textured Building Models - Raleigh');
+        toggleLayer(true, 'Textured Building Models');
         resetVariables();
         loadInitialGraphics();
     }
@@ -1456,13 +1456,13 @@ require([
         if (graphicsLyr){
           graphicsLyr.visible = false;
         }
-        toggleLayer(true, 'Raleigh Textured Building Models - Raleigh');
+        toggleLayer(true, 'Textured Building Models');
       } 
       else {
         //loadInitialGraphics();
         graphicsLyr.visible = true;
         graphicsLyrSelectionSym.visible = true;
-        toggleLayer(false, 'Raleigh Textured Building Models - Raleigh');
+        toggleLayer(false, 'Textured Building Models');
         $('#areaInfoA').collapse('hide');
         $('#panelHelp').collapse('hide');
       }
