@@ -1,0 +1,185 @@
+<!doctype html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>InVision Raleigh Documentation</title>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <!-- get calcite-web css from the cdn (use latest version) -->
+    <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.3/css/calcite-web.min.css">
+    <!--[if lt IE 9]>
+      <script src="/assets/javascripts/libs/selectivizr.js"></script>
+      <script src="/assets/javascripts/libs/html5shiv.js"></script>
+    <![endif]-->
+
+      <!-- If you'd like to support IE8 -->
+      <!--<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>-->
+      <style>
+        .video {
+          width: 800px;
+          height: 400px;
+          margin-bottom: 3em;
+        }
+        .font-bold {
+          font-weight: bold;
+        }
+      </style>
+  </head>
+  <body>
+<div class="wrapper">
+  <!-- top navigation -->
+
+  <!-- banner -->
+  <div class="panel" style="background-color: rgb(0, 121, 193);">
+    <div class="grid-container">
+      <div class="column-24">
+        <!-- title needs to go in here, but be white and centered -->
+        <h1 style="color: #fff;">InVision Raleigh <span><small>Prototype Documentation</small><span></h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- main-content -->
+  <div class="grid-container">
+    <br>
+    <!-- side navigation -->
+    <div class="column-4">
+      <aside class="side-nav" aria-role="complementary">
+        <h4 class="side-nav-title">Get Started</h4>
+        <nav role="navigation" aria-labelledby="sidenav">
+          <a href="#help-mapNav" class="side-nav-link">Map Navigation</a>
+          <a href="#help-areaPlanInfo" class="side-nav-link">Area Plan Info</a>
+          <a href="#help-explorer" class="side-nav-link">Explorer Scenario Tool</a>
+          <a href="#help-castShadow" class="side-nav-link">Cast Shadow Tool</a>
+          <a href="#help-Layers" class="side-nav-link">Layers Tool</a>
+          <a href="#help-basemap" class="side-nav-link">Basemap Tool</a>
+        </nav>
+      </aside>
+
+      <div class="js-sticky scroll-show tablet-hide" data-top="46">
+        <a href="#" class="btn btn-clear">Back to Top</a>
+      </div>
+    </div>
+
+    <!-- main content list -->
+    <div class="column-19 pre-1">
+
+      <h2 id="#help-mapNav">Map Navigation</h2>
+      <ul>
+        <li><span class="font-bold">Pan:</span> Left-click and hold down left mouse button, then move mouse in desired direction</li>
+        <li><span class="font-bold">Tilt & Rotation</span>: Right-click and hold down right mouse button to tilt and rotate the map</li>
+        <li><span class="font-bold">Zoom</span>: Use mouse wheel button to zoom in and out</li>
+      </ul>
+      <iframe class="tscplayer_inline video" src="video/MapNavigation/MapNavigation_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+      
+      <h2 id="help-areaPlanInfo">Area Plan Info</h2>
+      <ol>
+        <li>Click <span class="font-bold;">Area Plan Info</span> tool tab</li>
+        <li>Click information panel to see area planning information</li>
+        <li>Click <span class="font-bold;">Area Plan Info</span> tool tab again to close the tool</li>
+      </ol>      
+      <iframe class="tscplayer_inline video" src="video/AreaPlanInfo/AreaPlanInfo_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+      
+      <h2 id="help-explorer">Explorer Scenario Tool</h2>
+      <p>The scenario tool allows users to explore alternative planning scenarios by altering existing buildings and creating new buildings<br></p>
+      <p>User can:
+      <ul>
+        <li>modify dimensions (width, depth, and rotation)</li>
+        <li>modify the number of floors for retail, office and/or residential use</li>
+        <li>create new buildings</li>
+        <li>see summary reporting of the selected building modification(s)</li>
+        <li>see total gross square foot change of the scenario at the area planning level
+      </ul>
+      <h6>1. Modifying an existing building</h6>
+      <iframe class="tscplayer_inline video" src="video/ExplorerScenario1/ExplorerScenario1_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+      <h6>2. Creating a new building</h6>
+      <iframe class="tscplayer_inline video" src="video/ExplorerScenario2/ExplorerScenario2_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+
+      <h2 id="help-castShadow">Cast Shadow Tool</h2>
+      <ol>
+        <li>Click <span class="font-bold;">Cast Shadow</span> tool tab.  A clock will appear at the left bottom of the screen</li>
+        <li>Rotate the hands of the clock to show shadow casting at any given time (the day changes at midnight).</li>
+        <li>Revert to current time by clicking the Live button. The Live button turns red when the clock is set to the current time.</li>
+        <li>Click <span class="font-bold;">Cast Shadow</span> tool tab again to hide the tool and shadow
+      </ol>
+
+      <iframe class="tscplayer_inline video" src="video/CastShadow/CastShadow_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+
+      <h2 id="help-Layers">Layers Tool</h2>
+      <ol>
+        <li>Click <span class="font-bold;">Layers</span> tool tab</li>
+        <li>Select layers to turn on and off</li>
+        <li>Click <span class="font-bold;">Layers</span> tool tab to close the tool</li>
+      </ol>      
+      <iframe class="tscplayer_inline video" src="video/Layers/Layers_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+      
+      <h2 id="help-basemap">Basemap Tool</h2>
+      <ol>
+        <li>Click <span class="font-bold;">Basemap</span> tool tab</li>
+        <li>Select a basemap to turn on and off</li>
+        <li>Click <span class="font-bold;">Basemap</span> tool tab to close the tool</li>
+      </ol>  
+      <iframe class="tscplayer_inline video" src="video/Basemap/Basemap_player.html" scrolling="no" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>        
+    
+    </div>
+
+  </div>
+</div>
+
+<div class="footer" role="contentinfo">
+  <div class="grid-container">
+    <!-- footer section 1 -->
+    <!--<div class="column-5 pre-2">
+      <h6 class="font-size--2">Header 2</h6>
+      <ul class="list-plain font-size--2">
+        <li><a class="link-off-black" href="#">Link 1</a></li>
+        <li><a class="link-off-black" href="#">Link 2</a></li>
+        <li><a class="link-off-black" href="#">Link 3</a></li>
+      </ul>
+    </div>-->
+
+    <!-- footer section 2 -->
+    <!--<div class="column-5 pre-1">
+      <h6 class="font-size--2">Header 2</h6>
+      <ul class="list-plain font-size--2">
+        <li><a class="link-off-black" href="#">Link 1</a></li>
+        <li><a class="link-off-black" href="#">Link 2</a></li>
+        <li><a class="link-off-black" href="#">Link 3</a></li>
+      </ul>
+    </div>-->
+
+    <!-- footer section 3 -->
+    <!--<div class="column-5 pre-1">
+      <h6 class="font-size--2">Header 3</h6>
+      <ul class="list-plain font-size--2">
+        <li><a class="link-off-black" href="#">Link 1</a></li>
+        <li><a class="link-off-black" href="#">Link 2</a></li>
+        <li><a class="link-off-black" href="#">Link 3</a></li>
+      </ul>
+    </div>-->
+
+    <!-- footer section 4 -->
+    <!--<div class="column-4 pre-1">
+      <h6 class="font-size--2">Header 4</h6>
+      <ul class="list-plain font-size--2">
+        <li><a class="link-off-black" href="#">Link 1</a></li>
+        <li><a class="link-off-black" href="#">Link 2</a></li>
+        <li><a class="link-off-black" href="#">Link 3</a></li>
+      </ul>
+    </div>-->
+
+  </div>
+
+    <!-- get calcite-web js from the cdn (use latest version) -->
+    <script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.3/js/calcite-web.min.js"></script>
+
+    <!-- interactive patterns need to be initialized -->
+    <script>
+       calcite.init()
+    </script>
+
+  </body>
+</html>
