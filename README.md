@@ -39,7 +39,7 @@ User can:
 
 *Modifying dimensions*
 
-![Dimensions](img/dimension.gif)
+![Dimensions](img/dimensions.gif)
 
 
 *Modifying the number of floors*
