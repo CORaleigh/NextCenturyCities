@@ -7,8 +7,8 @@ http://152.1.0.24/InVisionRaleigh_May
  * Building drag function by Richie Carmichael / ESRI Prototype Lab (https://github.com/richiecarmichael/Esri-Building-Drag-Sample)
  * ArcGIS Online (https://www.arcgis.com/home/index.html)
  * UIs
-  * Calcite Web (https://esri.github.io/calcite-web)
-  * Calcite Maps (https://esri.github.io/calcite-maps/samples/index.html)
+   * Calcite Web (https://esri.github.io/calcite-web)
+   * Calcite Maps (https://esri.github.io/calcite-maps/samples/index.html)
 ### Other software:
 * jQuery (https://jquery.com)
 * bootstrap-slider (https://github.com/seiyria/bootstrap-slider)
