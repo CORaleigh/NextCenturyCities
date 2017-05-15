@@ -31,3 +31,5 @@ User can:
 * see summary reporting of the selected building modification(s)
 * see total gross square foot change of the scenario at the area planning level
 
+![Moving](img/move.gif)
+
