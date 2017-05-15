@@ -33,18 +33,22 @@ User can:
 * see total gross square foot change of the scenario at the area planning level
 
 *Moving the selected building*
+
 ![Moving](img/move.gif)
 
 
 *Modifying dimensions*
+
 ![Dimensions](img/dimension.gif)
 
 
 *Modifying the number of floors*
+
 ![Floors](img/floors.gif)
 
 
 *Creating a new building*
+
 ![NewBuilding](img/new_building.gif)
 
 
