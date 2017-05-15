@@ -2,7 +2,7 @@
 
 http://152.1.0.24/InVisionRaleigh_May
 
-### ESRI Web GIS software:
+### ESRI software:
  * ArcGIS JavaScript API 4.3 (https://developers.arcgis.com/javascript)
  * Building drag function by Richie Carmichael / ESRI Prototype Lab (https://github.com/richiecarmichael/Esri-Building-Drag-Sample)
  * ArcGIS Online (https://www.arcgis.com/home/index.html)
@@ -15,4 +15,19 @@ http://152.1.0.24/InVisionRaleigh_May
 * jQuery Popup Overlay (https://github.com/vast-engineering/jquery-popup-overlay)
 * C3.js (http://c3js.org) 
 
+
+## InVision Raleigh Prototype Application Documentation
+
+http://localhost/inVisionRaleigh/help.html
+
+### Explorer Scenario Tool
+The scenario tool allows users to explore alternative planning scenarios by altering existing buildings and creating new buildings.
+
+User can:
+
+* modify dimensions (width, depth, and rotation)
+* modify the number of floors for retail, office and/or residential use
+* create new buildings
+* see summary reporting of the selected building modification(s)
+* see total gross square foot change of the scenario at the area planning level
 
