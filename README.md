@@ -15,6 +15,7 @@ http://152.1.0.24/InVisionRaleigh_May
 * jQuery Popup Overlay (https://github.com/vast-engineering/jquery-popup-overlay)
 * C3.js (http://c3js.org) 
 
+<br>
 
 ## InVision Raleigh Prototype Application Documentation
 
@@ -25,9 +26,31 @@ The scenario tool allows users to explore alternative planning scenarios by alte
 
 User can:
 
+* move buildings
 * modify dimensions (width, depth, and rotation)
 * modify the number of floors for retail, office and/or residential use
 * create new buildings
 * see summary reporting of the selected building modification(s)
 * see total gross square foot change of the scenario at the area planning level
+
+*Moving the selected building*
+
+![Moving](img/move.gif)
+
+
+*Modifying dimensions*
+
+![Dimensions](img/dimensions.gif)
+
+
+*Modifying the number of floors*
+
+![Floors](img/floors.gif)
+
+
+*Creating a new building*
+
+![NewBuilding](img/new_building.gif)
+
+
 
