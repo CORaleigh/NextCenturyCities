@@ -19,7 +19,7 @@ http://152.1.0.24/InVisionRaleigh_May
 
 ## InVision Raleigh Prototype Application Documentation
 
-http://152.1.0.24/inVisionRaleigh/help.html
+http://152.1.0.24/inVisionRaleigh_May/help.html
 
 ### Explorer Scenario Tool
 The scenario tool allows users to explore alternative planning scenarios by altering existing buildings and creating new buildings.
