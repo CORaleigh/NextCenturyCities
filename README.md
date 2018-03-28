@@ -1,6 +1,6 @@
 # NextCenturyCities
 
-http://152.1.0.24/InVisionRaleigh_May
+https://coraleigh.github.io/NextCenturyCities/
 
 ### ESRI software:
  * ArcGIS JavaScript API 4.3 (https://developers.arcgis.com/javascript)
@@ -19,7 +19,7 @@ http://152.1.0.24/InVisionRaleigh_May
 
 ## InVision Raleigh Prototype Application Documentation
 
-http://152.1.0.24/inVisionRaleigh_May/help.html
+https://coraleigh.github.io/NextCenturyCities/
 
 ### Explorer Scenario Tool
 The scenario tool allows users to explore alternative planning scenarios by altering existing buildings and creating new buildings.
